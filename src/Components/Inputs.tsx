@@ -2,10 +2,11 @@ import { FC } from "react";
 
 type inputsTypes = {
   type: string;
-  value: string;
+  value?: string;
   id: string;
   placeholder: string;
-  onChange: any;
+  onChange?: any;
+  className?: string;
 };
 
 export const Inputs: FC<inputsTypes> = ({
@@ -14,6 +15,7 @@ export const Inputs: FC<inputsTypes> = ({
   id,
   placeholder,
   onChange,
+  className,
 }) => {
   return (
     <>
@@ -23,6 +25,8 @@ export const Inputs: FC<inputsTypes> = ({
         id={id}
         placeholder={placeholder}
         onChange={onChange}
+        className={className}
+        required
       />
     </>
   );

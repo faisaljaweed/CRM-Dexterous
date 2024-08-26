@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Inputs } from "./Inputs";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,14 +13,14 @@ const LoginScreen = () => {
     // Handle login logic here
     console.log("Email:", email);
     console.log("Password:", password);
-    navigate("/about");
+    navigate("/drawer");
     setEmail("");
     setPassword("");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+      <div className="md:w-[25rem] w-full max-w-md md:p-8 p-2 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -29,12 +30,14 @@ const LoginScreen = () => {
             >
               Email
             </label>
-            <input
+            <Inputs
               type="email"
               id="email"
+              placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -46,12 +49,14 @@ const LoginScreen = () => {
               Password
             </label>
             <div className="relative">
-              <input
+              <Inputs
                 type={showPassword ? "text" : "password"}
                 id="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                placeholder="Password"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <div className="absolute right-2 top-2">

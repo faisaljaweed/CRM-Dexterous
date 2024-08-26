@@ -14,6 +14,33 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { Data } from "./data";
+// Pages
+import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
+import { People } from "../Pages/Staff/People";
+import { Organization } from "../Pages/Staff/Organization";
+import { Customers } from "../Pages/Customer/Customer";
+import { Invoice } from "../Pages/Sales/Invoice";
+import { Payment } from "../Pages/Sales/Payment";
+import { RecentTransaction } from "../Pages/Transaction/RecentDeposit";
+import { AllTransaction } from "../Pages/Transaction/AllTransaction";
+import { ArchivedTask } from "../Pages/Task/ArchivedTask";
+import { RunnigTask } from "../Pages/Task/RunningTask";
+import { ClientPayment } from "../Pages/Account/ClientPayment";
+import { ExpenseManagement } from "../Pages/Account/ExpensePayment";
+import { Product } from "../Pages/Product Manager/Product";
+import { Warehous } from "../Pages/Product Manager/Warehouse";
+import { DealingInfo } from "../Pages/Report/DealingInfo";
+import { ClientReport } from "../Pages/Report/ClientReport";
+import { ExpenseReport } from "../Pages/Report/ExpenseReport";
+import { Employee } from "../Pages/Employee/Employee";
+import { Project } from "../Pages/Project/Project";
+import { SalaryGrade } from "../Pages/Payroll/SalaryGrade";
+import { EmployeeSalaryList } from "../Pages/Payroll/EmployeeSalaryList";
+import { Attandence } from "../Pages/Attendance/Attendance";
+import { Subscription } from "../Pages/Subscripton/Subscription";
+import { NoticeBoard } from "../Pages/Notice Board/NoticeBoard";
+import { Setting } from "../Pages/Setting/Setting";
+import { Support } from "../Pages/Support/Support";
 
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -78,7 +105,7 @@ export default function PersistentDrawerLeft() {
 
   const handleNavigation = (path: string) => {
     navigate(path);
-    handleDrawerClose();
+    // handleDrawerClose();
   };
 
   const RandomId = () => `id-${Math.random()}`;
@@ -160,38 +187,32 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
-          <Route path="Dashboard" element={<div>Dashboard</div>} />
-          <Route path="People" element={<div>People</div>} />
-          <Route path="Organization" element={<div>Organization</div>} />
-          <Route path="Customer" element={<div>Customer</div>} />
-          <Route path="Invoices" element={<div>Invoices</div>} />
-          <Route path="Payment" element={<div>Payment</div>} />
-          <Route path="Recent Deposit" element={<div>Recent Deposit</div>} />
-          <Route path="All Transaction" element={<div>All Transaction</div>} />
-          <Route path="Running Task" element={<div>Running Task</div>} />
-          <Route path="Archived Task" element={<div>Archived Task</div>} />
-          <Route path="Client Payment" element={<div>Client Payment</div>} />
-          <Route
-            path="Expense Management"
-            element={<div>Expense Management</div>}
-          />
-          <Route path="Products" element={<div>Products</div>} />
-          <Route path="Warehouse" element={<div>Warehouse</div>} />
-          <Route path="Dealing info" element={<div>Dealing info</div>} />
-          <Route path="Client Report" element={<div>Client Report</div>} />
-          <Route path="Expense Report" element={<div>Expense Report</div>} />
-          <Route path="Employee" element={<div>Employee</div>} />
-          <Route path="Project" element={<div>Project</div>} />
-          <Route path="Salary Grade" element={<div>Salary Grade</div>} />
-          <Route
-            path="Employee Salary List"
-            element={<div>Employee Salary List</div>}
-          />
-          <Route path="Attendance" element={<div>Attendance</div>} />
-          <Route path="Subscription" element={<div>Subscription</div>} />
-          <Route path="Notice Board" element={<div>Notice Board</div>} />
-          <Route path="Support" element={<div>Support</div>} />
-          <Route path="Setting" element={<div>Setting</div>} />
+          <Route path="Dashboard" element={<UIDashboard />} />
+          <Route path="People" element={<People />} />
+          <Route path="Organization" element={<Organization />} />
+          <Route path="Customer" element={<Customers />} />
+          <Route path="Invoices" element={<Invoice />} />
+          <Route path="Payment" element={<Payment />} />
+          <Route path="Recent Deposit" element={<RecentTransaction />} />
+          <Route path="All Transaction" element={<AllTransaction />} />
+          <Route path="Running Task" element={<RunnigTask />} />
+          <Route path="Archived Task" element={<ArchivedTask />} />
+          <Route path="Client Payment" element={<ClientPayment />} />
+          <Route path="Expense Management" element={<ExpenseManagement />} />
+          <Route path="Products" element={<Product />} />
+          <Route path="Warehouse" element={<Warehous />} />
+          <Route path="Dealing info" element={<DealingInfo />} />
+          <Route path="Client Report" element={<ClientReport />} />
+          <Route path="Expense Report" element={<ExpenseReport />} />
+          <Route path="Employee" element={<Employee />} />
+          <Route path="Project" element={<Project />} />
+          <Route path="Salary Grade" element={<SalaryGrade />} />
+          <Route path="Employee Salary List" element={<EmployeeSalaryList />} />
+          <Route path="Attendance" element={<Attandence />} />
+          <Route path="Subscription" element={<Subscription />} />
+          <Route path="Notice Board" element={<NoticeBoard />} />
+          <Route path="Support" element={<Support />} />
+          <Route path="Setting" element={<Setting />} />
         </Routes>
       </Main>
     </Box>

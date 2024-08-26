@@ -3,12 +3,13 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import PersistentDrawerLeft from "./Dashboard/MUIDrawer";
+import PersistentDrawerLeft from "./Dashboards/MUIDrawer";
+import LoginScreen from "./Components/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<div>Login</div>} />
+      <Route path="/" element={<LoginScreen />} />
       <Route path="/drawer/*" element={<PersistentDrawerLeft />} />
     </>
   )
