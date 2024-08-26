@@ -41,7 +41,8 @@ import { Subscription } from "../Pages/Subscripton/Subscription";
 import { NoticeBoard } from "../Pages/Notice Board/NoticeBoard";
 import { Setting } from "../Pages/Setting/Setting";
 import { Support } from "../Pages/Support/Support";
-
+//logo
+import Logo from "../Images/logo.webp";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -72,6 +73,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: "#ffffff",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -116,7 +118,16 @@ export default function PersistentDrawerLeft() {
     }
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{
+        display: "flex",
+        backgroundColor: "#f5f6fa",
+        minHeight: "100vh",
+        position: "absolute",
+        top: 0,
+        left: 0,
+      }}
+    >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -125,11 +136,16 @@ export default function PersistentDrawerLeft() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+            sx={{ mr: 2, ...(open && { display: "none" }), color: "black" }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ color: "#101924" }}
+          >
             Persistent drawer
           </Typography>
         </Toolbar>
@@ -141,6 +157,8 @@ export default function PersistentDrawerLeft() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            backgroundColor: "#101924", // Set background color here
+            color: "white", // Optional: Set text color to white
           },
         }}
         variant="persistent"
@@ -148,7 +166,10 @@ export default function PersistentDrawerLeft() {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <div className="flex items-center justify-center">
+            <img className="w-36 h-36" src={Logo} alt="Logo" />
+          </div>
+          <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
@@ -161,6 +182,12 @@ export default function PersistentDrawerLeft() {
           {Data.map((item, index) => {
             return (
               <TreeItem
+                sx={{
+                  cursor: "pointer",
+                  color: "white",
+                  ":hover": { backgroundColor: "primary.dark" },
+                  ":active": { backgroundColor: "primary.light" },
+                }}
                 itemId={RandomId()}
                 label={item.text}
                 key={index}
@@ -170,6 +197,12 @@ export default function PersistentDrawerLeft() {
                   return (
                     <TreeItem
                       key={subIndex}
+                      sx={{
+                        cursor: "pointer",
+                        color: "white",
+                        ":hover": { backgroundColor: "primary.dark" },
+                        ":active": { backgroundColor: "primary.light" },
+                      }}
                       itemId={RandomId()}
                       label={subItem.text}
                       onClick={(event) => {

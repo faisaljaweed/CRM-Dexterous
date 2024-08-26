@@ -51,10 +51,10 @@ export const Payment = () => {
         Add User
       </Button>
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border border-gray-700">
+        <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/7 text-center border border-gray-700">ID</th>
+              <th className="w-1/5 text-center border border-gray-700">ID</th>
               <th className="w-1/5 text-center border border-gray-700">
                 Account
               </th>
