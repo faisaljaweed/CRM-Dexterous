@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   id: string;
@@ -73,36 +74,35 @@ export const NoticeBoard = () => {
         <div className="flex justify-start flex-col items-start">
           <h2 className="text-xl">Notice Board</h2>
         </div>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add Product
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Id</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Id
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Topic
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Description
               </th>
-              <th className="w-1/5 text-center border border-gray-700">Date</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Date
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Expiry Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Publish Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
             </tr>
@@ -143,26 +143,26 @@ export const NoticeBoard = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="id">ID</label>
-              <input
+              <Inputs
                 id="id"
                 type="text"
                 placeholder="Id"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setId(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="topic">Topic</label>
-              <input
+              <Inputs
                 id="topic"
                 type="text"
                 placeholder="Topic"
                 value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTopic(e.target.value)
+                }
               />
             </div>
           </div>
@@ -186,70 +186,63 @@ export const NoticeBoard = () => {
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="date">Date</label>
-              <input
+              <Inputs
                 id="date"
                 type="text"
                 placeholder="Date"
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDate(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="expiry date">Expiry Date</label>
-              <input
+              <Inputs
                 id="expiry date"
                 type="text"
                 placeholder="Expiry Date"
                 value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setExpiryDate(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="publish Date">Publish Date</label>
-              <input
+              <Inputs
                 id="publish Date"
                 type="text"
                 placeholder="Publish Date"
                 value={publishDate}
-                onChange={(e) => setPublishDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPublishDate(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="status">Status</label>
-              <input
+              <Inputs
                 id="status"
                 type="text"
                 placeholder="Status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStatus(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full"></div>
           </div>
 
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add Product
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

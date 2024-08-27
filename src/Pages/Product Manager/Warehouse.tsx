@@ -1,8 +1,9 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -71,32 +72,29 @@ export const Warehous = () => {
     <div className="w-full">
       <div className="flex justify-between">
         <h2>Warehouse List</h2>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add User
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div className="">
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Warehouse Name
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Address (lane)
               </th>
-              <th className="w-1/5 text-center border border-gray-700">Role</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Role
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Warehouse Code
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Country
               </th>
             </tr>
@@ -134,33 +132,38 @@ export const Warehous = () => {
       <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
-          <input
+          <Inputs
             id="name"
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
+
           <label htmlFor="address">Address</label>
-          <input
+          <Inputs
             id="address"
             type="text"
             placeholder="Address Lane"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAddress(e.target.value)
+            }
           />
+
           <label htmlFor="code">Warehouse Code</label>
-          <input
+          <Inputs
             id="code"
+            type="text"
+            placeholder="Warehouse Code"
             value={code}
-            onChange={(e) => setCode(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCode(e.target.value)
+            }
           />
+
           <label htmlFor="country">Country</label>
           <select
             id="country"
@@ -179,17 +182,10 @@ export const Warehous = () => {
             <option value="Itlay">Itlay</option>
             <option value="India">India</option>
           </select>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            {editIndex !== null ? "Update User" : "Add User"}
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

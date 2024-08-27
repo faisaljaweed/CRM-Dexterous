@@ -15,7 +15,6 @@ export const Inputs: FC<inputsTypes> = ({
   id,
   placeholder,
   onChange,
-  className,
 }) => {
   return (
     <>
@@ -25,7 +24,7 @@ export const Inputs: FC<inputsTypes> = ({
         id={id}
         placeholder={placeholder}
         onChange={onChange}
-        className={className}
+        className="w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 border-black border-2 "
         required
       />
     </>

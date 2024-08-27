@@ -1,10 +1,12 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -73,29 +75,29 @@ export const People = () => {
 
   return (
     <div className="w-full">
-      <Button
-        sx={{
-          color: "white",
-          backgroundColor: "#1976d2",
-          "&:hover": { backgroundColor: "white", color: "#1976d2" },
-        }}
+      <Buttons
         onClick={handleOpen}
-      >
-        Add User
-      </Button>
+        className="text-white bg-[#1976d2] "
+        text="Add User"
+      />
+
       <div className="">
-        <table className="w-full table-fixed border border-gray-700">
+        <table className="w-full table-fixed border border-gray-700 mt-2">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">Role</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Role
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -136,25 +138,27 @@ export const People = () => {
       <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
-          <input
+          <Inputs
             id="name"
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
+
           <label htmlFor="email">Email</label>
-          <input
+          <Inputs
             id="email"
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
+
           <label htmlFor="role">Role</label>
           <select
             id="role"
@@ -185,15 +189,16 @@ export const People = () => {
           </select>
           <label htmlFor="password">Password</label>
           <div className="relative flex items-center">
-            <input
+            <Inputs
               id="password"
               type={handleVIsible ? "text" : "password"}
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="p-2 border-black border-2 pr-10 w-full"
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
+
             <div className="absolute right-2 cursor-pointer">
               {handleVIsible ? (
                 <VisibilityIcon onClick={() => setHandleVIsible(false)} />
@@ -202,17 +207,10 @@ export const People = () => {
               )}
             </div>
           </div>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            {editIndex !== null ? "Update User" : "Add User"}
-          </Button>
+          <Buttons
+            className="text-white bg-[#1976d2]"
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

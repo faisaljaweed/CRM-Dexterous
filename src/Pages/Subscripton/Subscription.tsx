@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -27,24 +28,7 @@ export const Subscription = () => {
   const [payment, setPayment] = useState("");
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
-  // const deleteProduct = (indexToDelete: number) => {
-  //   setAddUser((items) => items.filter((_, index) => index !== indexToDelete));
-  // };
 
-  // const handleEdit = (index: number) => {
-  //   const userToEdit = addUser[index];
-  //   setName(userToEdit.name);
-  //   setEmail(userToEdit.email);
-  //   setJoiningDate(userToEdit.joinDate);
-  //   setGroup(userToEdit.group);
-  //   setPlan(userToEdit.plan);
-  //   setPayment(userToEdit.payment);
-  //   setAmount(userToEdit.amount);
-  //   setStatus(userToEdit.status);
-  //   setEditIndex(index);
-  //   setOpen(true);
-  // };
-  // Handle modal open/close
   const handleOpen = () => {
     setOpen(true);
   };
@@ -94,39 +78,38 @@ export const Subscription = () => {
         <div className="flex justify-start flex-col items-start">
           <h2 className="text-xl">Subscription List</h2>
         </div>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add Product
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Joining Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Group
               </th>
-              <th className="w-1/5 text-center border border-gray-700">Plan</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Plan
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Payment
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Amount
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
             </tr>
@@ -170,26 +153,26 @@ export const Subscription = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="name">Name</label>
-              <input
+              <Inputs
                 id="name"
                 type="text"
                 placeholder="Id"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
-              <input
+              <Inputs
                 id="email"
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
           </div>
@@ -213,70 +196,62 @@ export const Subscription = () => {
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="plan">Plan</label>
-              <input
+              <Inputs
                 id="plan"
                 type="text"
                 placeholder="Plan"
                 value={plan}
-                onChange={(e) => setPlan(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPlan(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="payment">Pyment</label>
-              <input
+              <Inputs
                 id="payment"
                 type="text"
                 placeholder="Payment"
                 value={payment}
-                onChange={(e) => setPayment(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPayment(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="amount">Amount</label>
-              <input
+              <Inputs
                 id="amount"
                 type="text"
                 placeholder="Amount"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmount(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="status">Status</label>
-              <input
+              <Inputs
                 id="status"
                 type="text"
                 placeholder="Status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStatus(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full"></div>
           </div>
-
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add Product
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

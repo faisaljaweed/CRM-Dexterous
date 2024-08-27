@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   project: string;
@@ -99,41 +100,35 @@ export const Project = () => {
         <div className="flex justify-start flex-col items-start">
           <h2 className="text-xl">Projects</h2>
         </div>
-
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add Product
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Project Name
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Project Category
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Starting Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Target Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Client
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -175,14 +170,14 @@ export const Project = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="project">Project Name</label>
-              <input
+              <Inputs
                 id="project"
                 type="text"
                 placeholder="Project Name"
                 value={project}
-                onChange={(e) => setProject(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setProject(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
@@ -204,66 +199,66 @@ export const Project = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="startDate">Starting Date</label>
-              <input
+              <Inputs
                 id="startDate"
                 type="text"
                 placeholder="Starting Date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStartDate(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="targetDate">Target Date</label>
-              <input
+              <Inputs
                 id="targetDate"
                 type="text"
                 placeholder="Target Date"
                 value={targetDate}
-                onChange={(e) => setTargetDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTargetDate(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="client">Client</label>
-              <input
+              <Inputs
                 id="client"
                 type="text"
                 placeholder="Client"
                 value={client}
-                onChange={(e) => setClient(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setClient(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="number">Phone Number</label>
-              <input
+              <Inputs
                 id="number"
                 type="text"
                 placeholder="Phone Number"
                 value={number}
-                onChange={(e) => setNumber(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setNumber(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
-              <input
+              <Inputs
                 id="email"
                 type="text"
                 placeholder="Emaiil"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
@@ -285,17 +280,10 @@ export const Project = () => {
             </div>
           </div>
 
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add Product
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

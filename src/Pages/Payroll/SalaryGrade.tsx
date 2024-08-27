@@ -1,7 +1,8 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   id: string;
@@ -69,38 +70,37 @@ export const SalaryGrade = () => {
   return (
     <div className="w-full">
       <div className="flex justify-between mb-2">
-        <h2>Employee Salary List</h2>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <h2>Salary Gradet</h2>
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add List
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
 
       <div className="">
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">ID</th>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                ID
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Pay Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Amount
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -142,93 +142,86 @@ export const SalaryGrade = () => {
           <div className="flex gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="id">ID</label>
-              <input
+              <Inputs
                 id="id"
                 type="number"
                 placeholder="EMP ID"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setId(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="employee name">Employee Name</label>
-              <input
+              <Inputs
                 id="employee name"
                 type="text"
                 placeholder="Employee Nname"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
-              <input
+              <Inputs
                 id="email"
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="status">Position</label>
-              <input
+              <Inputs
                 id="status"
                 type="text"
                 placeholder="Position"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStatus(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="paydate">Pay Date</label>
-              <input
+              <Inputs
                 id="paydate"
                 type="text"
                 placeholder="Pay Date"
                 value={payDate}
-                onChange={(e) => setPayDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPayDate(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="amount">Amount </label>
-              <input
+              <Inputs
                 id="amount"
                 type="text"
                 placeholder="e.g. $750.00"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmount(e.target.value)
+                }
               />
             </div>
           </div>
 
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            {editIndex !== null ? "Update User" : "Add Deposit"}
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   id: string;
@@ -18,6 +19,7 @@ export const ClientPayment = () => {
   const [amount, setAmount] = useState("");
   const [date] = useState(new Date());
   const [status, setStatus] = useState("");
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
   // Handle modal open/close
   const handleOpen = () => {
@@ -54,30 +56,27 @@ export const ClientPayment = () => {
     <div className="w-full">
       <div className="flex justify-between pb-3">
         <h1>Client Payment Report</h1>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add User
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div className="">
         <h2 className="flex justify-between">All Invoices</h2>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 INVOICE ID
               </th>
-              <th className="w-1/5 text-center border border-gray-700">DATE</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                DATE
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 AMOUNT
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 STATUS
               </th>
             </tr>
@@ -133,14 +132,14 @@ export const ClientPayment = () => {
           />
 
           <label htmlFor="amount">Amount</label>
-          <input
+          <Inputs
             id="amount"
             type="amount"
             placeholder="Amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAmount(e.target.value)
+            }
           />
 
           <label htmlFor="status">Status</label>
@@ -157,17 +156,10 @@ export const ClientPayment = () => {
             <option value="Canceled">Canceled</option>
           </select>
 
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add User
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

@@ -1,8 +1,10 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -75,37 +77,35 @@ export const Customers = () => {
 
   return (
     <div className="w-full">
-      <Button
-        sx={{
-          color: "white",
-          backgroundColor: "#1976d2",
-          "&:hover": { backgroundColor: "white", color: "#1976d2" },
-        }}
+      <Buttons
+        text="Add User"
         onClick={handleOpen}
-      >
-        Add User
-      </Button>
+        className="text-white bg-[#1976d2]"
+      />
+
       <div className="">
-        <table className="w-full table-fixed border border-gray-700">
+        <table className="w-full table-fixed border border-gray-700 mt-2">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Phone
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Country
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Shipping Address
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Billing address
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -153,44 +153,46 @@ export const Customers = () => {
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <div className="flex flex-row gap-3">
             <label htmlFor="name">Name</label>
-            <input
+            <Inputs
               id="name"
               type="text"
               placeholder="Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="p-2 border-black border-2 ml-2"
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
             />
+
             <label htmlFor="email">Email</label>
-            <input
+            <Inputs
               id="email"
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="p-2 border-black border-2 ml-2"
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
             />
           </div>
 
           <div className="flex flex-row gap-3">
             <label htmlFor="phone">Phone</label>
-            <input
+            <Inputs
               id="phone"
               type="number"
               placeholder="Phone"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="p-2 border-black border-2 ml-2"
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPhone(e.target.value)
+              }
             />
+
             <label htmlFor="country">Country</label>
             <select
               id="Country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="p-2 border-black border-2 ml-2"
+              className="p-2 border-black border-2 ml-2 w-full"
               required
             >
               <option value="">Select a role</option>
@@ -203,36 +205,31 @@ export const Customers = () => {
             </select>
           </div>
           <label htmlFor="shipping">Shipping Address</label>
-          <input
+          <Inputs
             id="shiping"
             type="text"
             placeholder="Shipping Address"
             value={shipping}
-            onChange={(e) => setShipping(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setShipping(e.target.value)
+            }
           />
+
           <label htmlFor="billing">Billing Address</label>
-          <input
+          <Inputs
             id="billing"
             type="text"
             placeholder="Billing Address"
             value={billing}
-            onChange={(e) => setBilling(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setBilling(e.target.value)
+            }
           />
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            {editIndex !== null ? "Update User" : "Add User"}
-          </Button>
+
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

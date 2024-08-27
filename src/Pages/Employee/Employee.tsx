@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -87,42 +88,39 @@ export const Employee = () => {
     <div className="w-full">
       <div className="flex justify-between pb-3">
         <div className="flex justify-start flex-col items-start">
-          <h2 className="text-xl">Expense Management</h2>
+          <h2 className="text-xl">Employee</h2>
           <p>Department Member's Information Details </p>
         </div>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add Product
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div>
         <h2 className="flex justify-between">Employee</h2>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Department
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Designation
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Phone
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Address(lane)
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -164,26 +162,26 @@ export const Employee = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="employee">Employee</label>
-              <input
+              <Inputs
                 id="name"
                 type="text"
                 placeholder="Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
-              <input
+              <Inputs
                 id="email"
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
             </div>
           </div>
@@ -207,55 +205,48 @@ export const Employee = () => {
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="designation">Designation</label>
-              <input
+              <Inputs
                 id="designation"
                 type="text"
                 placeholder="Software Engineer"
                 value={designation}
-                onChange={(e) => setDesignation(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDesignation(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="phone">Phone</label>
-              <input
+              <Inputs
                 id="phone"
                 type="text"
                 placeholder="Phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPhone(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="address">Address</label>
-              <input
+              <Inputs
                 id="address"
                 type="text"
                 placeholder="Address"
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAddress(e.target.value)
+                }
               />
             </div>
           </div>
 
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add Product
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

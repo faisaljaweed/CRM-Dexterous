@@ -107,7 +107,7 @@ export default function PersistentDrawerLeft() {
 
   const handleNavigation = (path: string) => {
     navigate(path);
-    // handleDrawerClose();
+    handleDrawerClose();
   };
 
   const RandomId = () => `id-${Math.random()}`;
@@ -117,15 +117,11 @@ export default function PersistentDrawerLeft() {
       handleNavigation(text.toLowerCase()); // Navigate if no sub-items
     }
   };
+
   return (
     <Box
       sx={{
         display: "flex",
-        backgroundColor: "#f5f6fa",
-        minHeight: "100vh",
-        position: "absolute",
-        top: 0,
-        left: 0,
       }}
     >
       <CssBaseline />
@@ -220,6 +216,7 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
+          <Route path="/" element={<UIDashboard />} />
           <Route path="Dashboard" element={<UIDashboard />} />
           <Route path="People" element={<People />} />
           <Route path="Organization" element={<Organization />} />

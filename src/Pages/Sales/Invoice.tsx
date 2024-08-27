@@ -1,8 +1,9 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useNavigate } from "react-router-dom";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   id: string;
@@ -28,11 +29,8 @@ export const Invoice = () => {
   const [dueDate, setDueDate] = useState("");
   const [status, setStatus] = useState("");
   const [contact, setContact] = useState("");
-
+  const [editIndex, setEditIndex] = useState<number | null>(null);
   const navigate = useNavigate();
-  const handleEditClick = (user: User) => {
-    navigate(`/about/${user.id}`, { state: user });
-  };
 
   // Handle modal open/close
   const handleOpen = () => setOpen(true);
@@ -66,30 +64,38 @@ export const Invoice = () => {
 
   return (
     <div className="w-full">
+      <Buttons
+        text="Add User"
+        onClick={handleOpen}
+        className="text-white bg-[#1976d2]"
+      />
+
       <div className="">
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/6 text-center border border-gray-700">ID </th>
-              <th className="w-1/3 text-center border border-gray-700">
+              <th className="w-1/6 text-center border border-gray-700 text-[12px]">
+                ID{" "}
+              </th>
+              <th className="w-1/3 text-center border border-gray-700 text-[12px]">
                 Project Name
               </th>
-              <th className="w-1/6 text-center border border-gray-700">
+              <th className="w-1/6 text-center border border-gray-700 text-[12px]">
                 Amount
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Address
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Invoice Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Due Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
-              <th className="w-1/6 text-center border border-gray-700">
+              <th className="w-1/6 text-center border border-gray-700 text-[12px]">
                 Actions
               </th>
             </tr>
@@ -121,10 +127,7 @@ export const Invoice = () => {
                   {item.status}
                 </td>
                 <td className="w-1/5 text-center border-gray-700">
-                  <MoreHorizIcon
-                    fontSize="small"
-                    onClick={() => handleEditClick(item)}
-                  />
+                  <MoreHorizIcon fontSize="small" />
                   {/* Other icons and actions here */}
                 </td>
               </tr>
@@ -139,52 +142,52 @@ export const Invoice = () => {
           <div className="flex gap-2 flex-row">
             <div className="flex flex-col">
               <label htmlFor="order_id">Order ID</label>
-              <input
+              <Inputs
                 id="order_id"
                 type="number"
                 placeholder="order id"
                 value={id}
-                onChange={(e) => setId(e.target.value)}
-                className="p-2 border-black border-2 ml-2"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setId(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="name">Project Name</label>
-              <input
+              <Inputs
                 id="name"
                 type="text"
                 placeholder="Project Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="p-2 border-black border-2 ml-2"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex gap-2 flex-row">
             <div className="flex flex-col">
               <label htmlFor="amount">Amount</label>
-              <input
+              <Inputs
                 id="amount"
                 type="number"
                 placeholder="Amount"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="p-2 border-black border-2 ml-2"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmount(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="address">Address</label>
-              <input
+              <Inputs
                 id="address"
                 type="text"
                 placeholder="Address"
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                className="p-2 border-black border-2 ml-2"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAddress(e.target.value)
+                }
               />
             </div>
           </div>
@@ -202,48 +205,43 @@ export const Invoice = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="dueDate">Due Date</label>
-              <input
+              <Inputs
                 id="dueDate"
                 type="date"
                 placeholder="Due Date"
                 value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="p-2 border-black border-2 ml-2"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDueDate(e.target.value)
+                }
               />
             </div>
           </div>
           <label htmlFor="contact">Contact</label>
-          <input
+          <Inputs
             id="contact"
             type="number"
             placeholder="Contact"
             value={contact}
-            onChange={(e) => setContact(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setContact(e.target.value)
+            }
           />
+
           <label htmlFor="status">Status</label>
-          <input
+          <Inputs
             id="status"
             type="text"
             placeholder="Status"
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setStatus(e.target.value)
+            }
           />
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add User
-          </Button>
+
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

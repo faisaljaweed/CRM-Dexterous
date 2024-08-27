@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   budgetNo: string;
@@ -39,6 +40,7 @@ export const ExpenseManagement = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
   // Handle modal open/close
   const handleOpen = () => {
@@ -80,36 +82,33 @@ export const ExpenseManagement = () => {
     <div className="w-full">
       <div className="flex justify-between pb-3">
         <h2 className="text-xl">Expense Management</h2>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add User
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div className="">
         <h2 className="flex justify-between">Project Expenses</h2>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Budget No.
               </th>
-              <th className="w-1/5 text-center border border-gray-700">DATE</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                DATE
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Invoice ID
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Description
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Amount
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
             </tr>
@@ -189,27 +188,28 @@ export const ExpenseManagement = () => {
             </div>
             <div>
               <label htmlFor="description">Description</label>
-              <input
+              <Inputs
                 id="description"
                 type="text"
                 placeholder="Description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDescription(e.target.value)
+                }
               />
             </div>
           </div>
           <label htmlFor="amount">Amount</label>
-          <input
+          <Inputs
             id="amount"
             type="number"
             placeholder="Amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAmount(e.target.value)
+            }
           />
+
           <label htmlFor="status">Status</label>
           <select
             id="status"
@@ -223,17 +223,10 @@ export const ExpenseManagement = () => {
             <option value="Pending">Pending</option>
             <option value="Canceled">Canceled</option>
           </select>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add User
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

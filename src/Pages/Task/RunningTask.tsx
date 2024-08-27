@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   task: string;
@@ -22,6 +23,7 @@ export const RunnigTask = () => {
   const [deadline, setDeadline] = useState("");
   const [assign, setAssign] = useState(""); // Set current date-time once, and make it fixed
   const [status, setStatus] = useState("");
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
   // Handle modal open/close
   const handleOpen = () => setOpen(true);
@@ -53,35 +55,32 @@ export const RunnigTask = () => {
     <div className="w-full">
       <div className="flex justify-between pb-3">
         <h1>Running Task</h1>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add User
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div className="">
-        <table className="w-full table-fixed border border-gray-700">
+        <table className="w-full table-fixed border border-gray-700 text-[12px]">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Task Name{" "}
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Start Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Assing to
               </th>
-              <th className="w-1/5 text-center border border-gray-700">Tag </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Tag{" "}
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status{" "}
               </th>
             </tr>
@@ -120,14 +119,14 @@ export const RunnigTask = () => {
           {/* Form Fields */}
 
           <label htmlFor="task">Task Name</label>
-          <input
+          <Inputs
             id="task"
             type="text"
             placeholder="Start Task"
             value={task}
-            onChange={(e) => setTask(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setTask(e.target.value)
+            }
           />
 
           <label htmlFor="description">Task Description</label>
@@ -155,28 +154,28 @@ export const RunnigTask = () => {
             </div>
             <div className="flex flex-col">
               <label htmlFor="task deadlines">Task Deadlines</label>
-              <input
+              <Inputs
                 id="task deadlines"
                 type="text"
                 placeholder="task deadlines"
                 value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDeadline(e.target.value)
+                }
               />
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="assign to">Assign To</label>
-              <input
+              <Inputs
                 id="assign to"
                 type="text"
                 placeholder="assign to"
                 value={assign}
-                onChange={(e) => setAssign(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAssign(e.target.value)
+                }
               />
             </div>
             <div className="flex flex-col w-full">
@@ -195,17 +194,11 @@ export const RunnigTask = () => {
               </select>
             </div>
           </div>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add User
-          </Button>
+
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

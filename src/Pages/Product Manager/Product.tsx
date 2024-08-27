@@ -1,6 +1,8 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 
 type User = {
   name: string;
@@ -82,30 +84,27 @@ export const Product = () => {
     <div className="w-full">
       <div className="flex justify-between pb-3">
         <h2 className="text-xl">Expense Management</h2>
-        <Button
-          sx={{
-            color: "white",
-            backgroundColor: "#1976d2",
-            "&:hover": { backgroundColor: "white", color: "#1976d2" },
-          }}
+        <Buttons
+          text="Add User"
           onClick={handleOpen}
-        >
-          Add Product
-        </Button>
+          className="text-white bg-[#1976d2]"
+        />
       </div>
       <div>
         <h2 className="flex justify-between">Products</h2>
         <table className="w-full table-fixed border border-gray-700">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">Name</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Name
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Thumbnail
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Buying Price
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Category
               </th>
             </tr>
@@ -144,14 +143,14 @@ export const Product = () => {
           <h2>Project Expenses</h2>
 
           <label htmlFor="name">Name</label>
-          <input
+          <Inputs
             id="name"
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
 
           <label htmlFor="thumbnailFile">Choose Thumbnail Image</label>
@@ -172,14 +171,14 @@ export const Product = () => {
           )}
 
           <label htmlFor="price">Buying Price</label>
-          <input
+          <Inputs
             id="price"
             type="number"
             placeholder="Buying Price"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="p-2 border-black border-2 w-full"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPrice(e.target.value)
+            }
           />
 
           <label htmlFor="category">Category</label>
@@ -198,17 +197,10 @@ export const Product = () => {
             <option value="technology">Technology</option>
             <option value="tools">Tools</option>
           </select>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add Product
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>

@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
+import { Inputs } from "../../Components/Inputs";
+import { Buttons } from "../../Components/Button";
 type User = {
   id: string;
   account: string;
@@ -19,6 +20,7 @@ export const Payment = () => {
   const [issueDate, setIssueDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [status, setStatus] = useState("");
+  const [editIndex, setEditIndex] = useState<number | null>(null);
   // Handle modal open/close
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,34 +42,32 @@ export const Payment = () => {
 
   return (
     <div className="w-full">
-      <Button
-        sx={{
-          color: "white",
-          backgroundColor: "#1976d2",
-          "&:hover": { backgroundColor: "white", color: "#1976d2" },
-        }}
+      <Buttons
+        text="Add User"
         onClick={handleOpen}
-      >
-        Add User
-      </Button>
+        className="text-white bg-[#1976d2]"
+      />
+
       <div className="overflow-x-auto">
-        <table className="w-full table-fixed border border-gray-700">
+        <table className="w-full table-fixed border border-gray-700 mt-2">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700">ID</th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                ID
+              </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Account
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Amount
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Issue Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Due Date
               </th>
-              <th className="w-1/5 text-center border border-gray-700">
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status
               </th>
             </tr>
@@ -102,55 +102,60 @@ export const Payment = () => {
       <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
           <label htmlFor="id">Id</label>
-          <input
+          <Inputs
             id="id"
             type="number"
             placeholder="ID"
             value={id}
-            onChange={(e) => setId(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setId(e.target.value)
+            }
           />
+
           <label htmlFor="account">Account</label>
-          <input
+          <Inputs
             id="account"
             type="text"
             placeholder="Account"
             value={account}
-            onChange={(e) => setAccount(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAccount(e.target.value)
+            }
           />
+
           <label htmlFor="amount">Amount</label>
-          <input
+          <Inputs
             id="amount"
             type="number"
             placeholder="Amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAmount(e.target.value)
+            }
           />
+
           <label htmlFor="id">Issue Date</label>
-          <input
+          <Inputs
             id="issueDate"
             type="Date"
             placeholder="Issue Date"
             value={issueDate}
-            onChange={(e) => setIssueDate(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setIssueDate(e.target.value)
+            }
           />
+
           <label htmlFor="dueDate">Due Date</label>
-          <input
+          <Inputs
             id="dueDate"
             type="Date"
             placeholder="dueDate"
             value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="p-2 border-black border-2 ml-2"
-            required
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setDueDate(e.target.value)
+            }
           />
+
           <label htmlFor="status">Status</label>
           <select
             id="status"
@@ -164,17 +169,10 @@ export const Payment = () => {
             <option value="Due">Due</option>
             <option value="Canceled">Canceled</option>
           </select>
-          <Button
-            type="submit"
-            sx={{
-              mt: 2,
-              backgroundColor: "green",
-              color: "white",
-              "&:hover": { backgroundColor: "black" },
-            }}
-          >
-            Add User
-          </Button>
+          <Buttons
+            className="text-white bg-green-700 "
+            text={editIndex !== null ? "Update User" : "Add User"}
+          />
         </form>
       </Modals>
     </div>
