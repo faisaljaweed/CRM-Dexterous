@@ -145,7 +145,7 @@ export const NoticeBoard = () => {
               <label htmlFor="id">ID</label>
               <Inputs
                 id="id"
-                type="text"
+                type="number"
                 placeholder="Id"
                 value={id}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -168,27 +168,22 @@ export const NoticeBoard = () => {
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
-              <label htmlFor="department">Description</label>
-              <select
-                id="department"
-                value={description}
+              <label htmlFor="department">Task Description</label>
+              <textarea
+                className="w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 border-black border-2 "
+                cols={30}
+                rows={4}
                 onChange={(e) => setDescription(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
-              >
-                <option value="">Select Department</option>
-                <option value="it">Information Technology</option>
-                <option value="finance">Finance</option>
-                <option value="marketing">Marketing</option>
-                <option value="hr">Human Resources</option>
-                <option value="graphics">Graphics</option>
-              </select>
+                value={description}
+              />
             </div>
+          </div>
+          <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="date">Date</label>
               <Inputs
                 id="date"
-                type="text"
+                type="date"
                 placeholder="Date"
                 value={date}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -196,13 +191,11 @@ export const NoticeBoard = () => {
                 }
               />
             </div>
-          </div>
-          <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="expiry date">Expiry Date</label>
               <Inputs
                 id="expiry date"
-                type="text"
+                type="date"
                 placeholder="Expiry Date"
                 value={expiryDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -210,11 +203,13 @@ export const NoticeBoard = () => {
                 }
               />
             </div>
+          </div>
+          <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="publish Date">Publish Date</label>
               <Inputs
                 id="publish Date"
-                type="text"
+                type="date"
                 placeholder="Publish Date"
                 value={publishDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -222,21 +217,21 @@ export const NoticeBoard = () => {
                 }
               />
             </div>
-          </div>
-          <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="status">Status</label>
-              <Inputs
-                id="status"
-                type="text"
-                placeholder="Status"
+              <select
+                id="department"
                 value={status}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setStatus(e.target.value)
-                }
-              />
+                onChange={(e) => setStatus(e.target.value)}
+                className="p-2 border-black border-2 w-full"
+                required
+              >
+                <option value="status">Status</option>
+                <option value="Published">Published</option>
+                <option value="Pending">Pending</option>
+                <option value="Delay">Delay</option>
+              </select>
             </div>
-            <div className="flex flex-col w-full"></div>
           </div>
 
           <Buttons

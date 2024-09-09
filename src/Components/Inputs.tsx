@@ -3,8 +3,8 @@ import { FC } from "react";
 type inputsTypes = {
   type: string;
   value?: string;
-  id: string;
-  placeholder: string;
+  id?: string;
+  placeholder?: string;
   onChange?: any;
   className?: string;
 };

@@ -156,7 +156,7 @@ export const Warehous = () => {
           <label htmlFor="code">Warehouse Code</label>
           <Inputs
             id="code"
-            type="text"
+            type="number"
             placeholder="Warehouse Code"
             value={code}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

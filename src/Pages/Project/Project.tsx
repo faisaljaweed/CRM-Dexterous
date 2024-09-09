@@ -201,7 +201,7 @@ export const Project = () => {
               <label htmlFor="startDate">Starting Date</label>
               <Inputs
                 id="startDate"
-                type="text"
+                type="date"
                 placeholder="Starting Date"
                 value={startDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -213,7 +213,7 @@ export const Project = () => {
               <label htmlFor="targetDate">Target Date</label>
               <Inputs
                 id="targetDate"
-                type="text"
+                type="date"
                 placeholder="Target Date"
                 value={targetDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -239,7 +239,7 @@ export const Project = () => {
               <label htmlFor="number">Phone Number</label>
               <Inputs
                 id="number"
-                type="text"
+                type="number"
                 placeholder="Phone Number"
                 value={number}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -253,7 +253,7 @@ export const Project = () => {
               <label htmlFor="email">Email</label>
               <Inputs
                 id="email"
-                type="text"
+                type="email"
                 placeholder="Emaiil"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

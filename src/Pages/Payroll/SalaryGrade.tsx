@@ -196,7 +196,7 @@ export const SalaryGrade = () => {
               <label htmlFor="paydate">Pay Date</label>
               <Inputs
                 id="paydate"
-                type="text"
+                type="date"
                 placeholder="Pay Date"
                 value={payDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -208,7 +208,7 @@ export const SalaryGrade = () => {
               <label htmlFor="amount">Amount </label>
               <Inputs
                 id="amount"
-                type="text"
+                type="amount"
                 placeholder="e.g. $750.00"
                 value={amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

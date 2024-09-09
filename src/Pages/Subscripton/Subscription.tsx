@@ -7,7 +7,6 @@ type User = {
   name: string;
   email: string; // Store the image URL or file path
   joinDate: string;
-  group: string;
   plan: string;
   payment: string;
   amount: string;
@@ -23,7 +22,6 @@ export const Subscription = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [joinDate, setJoiningDate] = useState("");
-  const [group, setGroup] = useState("");
   const [plan, setPlan] = useState("");
   const [payment, setPayment] = useState("");
   const [amount, setAmount] = useState("");
@@ -38,7 +36,6 @@ export const Subscription = () => {
     setName("");
     setEmail("");
     setJoiningDate("");
-    setGroup("");
     setPlan("");
     setPayment("");
     setAmount("");
@@ -52,7 +49,6 @@ export const Subscription = () => {
       name,
       email,
       joinDate,
-      group,
       plan,
       payment,
       amount,
@@ -98,9 +94,6 @@ export const Subscription = () => {
                 Joining Date
               </th>
               <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Group
-              </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Plan
               </th>
               <th className="w-1/5 text-center border border-gray-700 text-[12px]">
@@ -127,9 +120,6 @@ export const Subscription = () => {
                   {item.joinDate}
                 </td>
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.group}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.plan}
                 </td>
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
@@ -149,14 +139,14 @@ export const Subscription = () => {
 
       <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-          <h2>Project Expenses</h2>
+          <h2>Add Subscriber</h2>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="name">Name</label>
               <Inputs
                 id="name"
                 type="text"
-                placeholder="Id"
+                placeholder="Name"
                 value={name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setName(e.target.value)
@@ -167,7 +157,7 @@ export const Subscription = () => {
               <label htmlFor="email">Email</label>
               <Inputs
                 id="email"
-                type="text"
+                type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -179,52 +169,57 @@ export const Subscription = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="joinDate">Joining Date</label>
-              <select
-                id="joindate"
+              <Inputs
+                id="joinDate"
+                type="date"
+                placeholder="Joining Date"
                 value={joinDate}
-                onChange={(e) => setJoiningDate(e.target.value)}
-                className="p-2 border-black border-2 w-full"
-                required
-              >
-                <option value="">Select Department</option>
-                <option value="it">Information Technology</option>
-                <option value="finance">Finance</option>
-                <option value="marketing">Marketing</option>
-                <option value="hr">Human Resources</option>
-                <option value="graphics">Graphics</option>
-              </select>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setJoiningDate(e.target.value)
+                }
+              />
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="plan">Plan</label>
-              <Inputs
+              <select
                 id="plan"
-                type="text"
-                placeholder="Plan"
                 value={plan}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPlan(e.target.value)
-                }
-              />
+                onChange={(e) => setPlan(e.target.value)}
+                className="p-2 border-black border-2 w-full"
+                required
+              >
+                <option value="">Plan</option>
+                <option value="basic">Basic</option>
+                <option value="Unlimited">Unlimited</option>
+                <option value="pro">Pro</option>
+                <option value="hr">Human Resources</option>
+                <option value="graphics">Graphics</option>
+              </select>
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="payment">Pyment</label>
-              <Inputs
-                id="payment"
-                type="text"
-                placeholder="Payment"
+              <select
+                id="plan"
                 value={payment}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPayment(e.target.value)
-                }
-              />
+                onChange={(e) => setPayment(e.target.value)}
+                className="p-2 border-black border-2 w-full"
+                required
+              >
+                <option value="">Payment</option>
+                <option value="Paid">Paid</option>
+                <option value="Due">Due</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Pending">Pending</option>
+                <option value="Graphics">Graphics</option>
+              </select>
             </div>
             <div className="flex flex-col w-full">
               <label htmlFor="amount">Amount</label>
               <Inputs
                 id="amount"
-                type="text"
+                type="number"
                 placeholder="Amount"
                 value={amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -236,15 +231,18 @@ export const Subscription = () => {
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="status">Status</label>
-              <Inputs
-                id="status"
-                type="text"
-                placeholder="Status"
+              <select
+                id="plan"
                 value={status}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setStatus(e.target.value)
-                }
-              />
+                onChange={(e) => setStatus(e.target.value)}
+                className="p-2 border-black border-2 w-full"
+                required
+              >
+                <option value="">Status</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+                <option value="canceled">Canceled</option>
+              </select>
             </div>
             <div className="flex flex-col w-full"></div>
           </div>

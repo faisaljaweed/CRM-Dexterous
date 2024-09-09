@@ -176,7 +176,7 @@ export const Employee = () => {
               <label htmlFor="email">Email</label>
               <Inputs
                 id="email"
-                type="text"
+                type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -221,7 +221,7 @@ export const Employee = () => {
               <label htmlFor="phone">Phone</label>
               <Inputs
                 id="phone"
-                type="text"
+                type="number"
                 placeholder="Phone"
                 value={phone}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -233,7 +233,7 @@ export const Employee = () => {
               <label htmlFor="address">Address</label>
               <Inputs
                 id="address"
-                type="text"
+                type="address"
                 placeholder="Address"
                 value={address}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
