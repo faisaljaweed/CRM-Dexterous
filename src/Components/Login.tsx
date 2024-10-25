@@ -1,23 +1,58 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Inputs } from "./Inputs";
+import { Inputs } from "./Inputs"; // Assuming you have an Inputs component
 //logo
 import Logo from "../Images/logo.webp";
+import { toast } from "react-toastify";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null); // To handle errors
   const navigate = useNavigate();
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    navigate("/drawer");
+    try {
+      const response = await fetch(`http://localhost:8000/api/v1/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("res from server", data);
+        localStorage.setItem("accessToken", data.data.accessToken);
+        localStorage.setItem("refreshToken", data.data.refreshToken);
+        console.log("Tokens stored in localStorage:", {
+          accessToken: localStorage.getItem("accessToken"),
+          refreshToken: localStorage.getItem("refreshToken"),
+        });
+        toast.success("Registeration Successful");
+        navigate("/drawer");
+      } else {
+        setError("Invalid email or password");
+        toast.error("Invalid email or password");
+      }
+
+      // console.log("Succesfully", response);
+    } catch (error) {
+      console.log("Unsuccessfully", error);
+    }
+
+    // "http://localhost:8000/api/v1/users/login",
+
     setEmail("");
     setPassword("");
+    setError(null);
   };
 
   return (
@@ -27,6 +62,7 @@ const LoginScreen = () => {
           <img className="w-36 h-36" src={Logo} alt="Logo" />
         </div>
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -43,7 +79,6 @@ const LoginScreen = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
-              // className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-6">
@@ -62,7 +97,6 @@ const LoginScreen = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setPassword(e.target.value)
                 }
-                // className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <div className="absolute right-2 top-2">
                 {showPassword ? (

@@ -43,6 +43,8 @@ import { Setting } from "../Pages/Setting/Setting";
 import { Support } from "../Pages/Support/Support";
 //logo
 import Logo from "../Images/logo.webp";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import axios from "axios";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -118,6 +120,50 @@ export default function PersistentDrawerLeft() {
     }
   };
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openMenu = Boolean(anchorEl);
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  // http://localhost:8000/api/v1/users/logout
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      console.log("Token being sent for logout:", token);
+      // Fetch the logout API to invalidate the session or token on the server
+      const response = await fetch(
+        `http://localhost:8000/api/v1/users/logout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Sending the token for authorization
+          },
+        }
+      );
+
+      if (response.ok) {
+        // Clear tokens from localStorage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        // Navigate to login or home page after successful logout
+        navigate("/");
+      } else {
+        console.log("Logout failed");
+      }
+    } catch (error) {
+      console.log("Error during logout:", error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -126,7 +172,7 @@ export default function PersistentDrawerLeft() {
     >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -136,6 +182,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography
             variant="h6"
             noWrap
@@ -144,6 +191,22 @@ export default function PersistentDrawerLeft() {
           >
             Persistent drawer
           </Typography>
+          <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
+            <Avatar></Avatar>
+          </IconButton>
+
+          {/* Menu (Name and Logout) */}
+          <Menu
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClose={handleCloseMenu}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+            // open={false}
+          >
+            <MenuItem onClick={handleCloseMenu}>User Name</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer
