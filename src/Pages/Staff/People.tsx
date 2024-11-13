@@ -115,7 +115,12 @@ export const People = () => {
         // Adding new user
         const response = await axios.post(
           "http://localhost:8000/api/v1/users/signup",
-          userData
+          userData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
         );
 
         if (response.status === 201) {
@@ -284,6 +289,7 @@ export const People = () => {
             <option value="Animation">Animation</option>
             <option value="Content Writer">Content Writer</option>
             <option value="admin">Admin</option>
+            <option value="sales">Sales</option>
           </select>
 
           <label htmlFor="fullname">Full Name</label>

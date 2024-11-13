@@ -13,38 +13,18 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import { Data } from "./data";
+import { UserData } from "./userData";
 // Pages
-import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
-import { People } from "../Pages/Staff/People";
-import { Organization } from "../Pages/Staff/Organization";
-import { Customers } from "../Pages/Customer/Customer";
-import { Invoice } from "../Pages/Sales/Invoice";
-import { Payment } from "../Pages/Sales/Payment";
-import { RecentTransaction } from "../Pages/Transaction/RecentDeposit";
-import { AllTransaction } from "../Pages/Transaction/AllTransaction";
-import { ArchivedTask } from "../Pages/Task/ArchivedTask";
-import { RunnigTask } from "../Pages/Task/RunningTask";
-import { ClientPayment } from "../Pages/Account/ClientPayment";
-import { ExpenseManagement } from "../Pages/Account/ExpensePayment";
-import { Product } from "../Pages/Product Manager/Product";
-import { Warehous } from "../Pages/Product Manager/Warehouse";
-import { DealingInfo } from "../Pages/Report/DealingInfo";
-import { ClientReport } from "../Pages/Report/ClientReport";
-import { ExpenseReport } from "../Pages/Report/ExpenseReport";
-import { Employee } from "../Pages/Employee/Employee";
-import { Project } from "../Pages/Project/Project";
-import { SalaryGrade } from "../Pages/Payroll/SalaryGrade";
-import { EmployeeSalaryList } from "../Pages/Payroll/EmployeeSalaryList";
-import { Attandence } from "../Pages/Attendance/Attendance";
-import { Subscription } from "../Pages/Subscripton/Subscription";
-import { NoticeBoard } from "../Pages/Notice Board/NoticeBoard";
-import { Setting } from "../Pages/Setting/Setting";
-import { Support } from "../Pages/Support/Support";
+// import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
+
 //logo
 import Logo from "../Images/logo.webp";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import axios from "axios";
+import Home from "../UserPage/Home";
+import Organizations from "../UserPage/Organization";
+import Lead from "../UserPage/Lead";
+import Times from "../UserPage/Time";
+import Emails from "../UserPage/Email";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -75,7 +55,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: "#ffffff",
+  backgroundColor: "#1B5EF0",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -94,9 +74,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function UserDashboard() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -104,7 +84,7 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(true);
   };
 
   const handleNavigation = (path: string) => {
@@ -239,7 +219,7 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <SimpleTreeView>
-          {Data.map((item, index) => {
+          {UserData.map((item, index) => {
             return (
               <TreeItem
                 sx={{
@@ -280,33 +260,14 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
-          <Route path="/" element={<UIDashboard />} />
-          <Route path="Dashboard" element={<UIDashboard />} />
-          <Route path="People" element={<People />} />
-          <Route path="Organization" element={<Organization />} />
-          <Route path="Customer" element={<Customers />} />
-          <Route path="Invoices" element={<Invoice />} />
-          <Route path="Payment" element={<Payment />} />
-          <Route path="Recent Deposit" element={<RecentTransaction />} />
-          <Route path="All Transaction" element={<AllTransaction />} />
-          <Route path="Running Task" element={<RunnigTask />} />
-          <Route path="Archived Task" element={<ArchivedTask />} />
-          <Route path="Client Payment" element={<ClientPayment />} />
-          <Route path="Expense Management" element={<ExpenseManagement />} />
-          <Route path="Products" element={<Product />} />
-          <Route path="Warehouse" element={<Warehous />} />
-          <Route path="Dealing info" element={<DealingInfo />} />
-          <Route path="Client Report" element={<ClientReport />} />
-          <Route path="Expense Report" element={<ExpenseReport />} />
-          <Route path="Employee" element={<Employee />} />
-          <Route path="Project" element={<Project />} />
-          <Route path="Salary Grade" element={<SalaryGrade />} />
-          <Route path="Employee Salary List" element={<EmployeeSalaryList />} />
-          <Route path="Attendance" element={<Attandence />} />
-          <Route path="Subscription" element={<Subscription />} />
-          <Route path="Notice Board" element={<NoticeBoard />} />
-          <Route path="Support" element={<Support />} />
-          <Route path="Setting" element={<Setting />} />
+          <Route path="/" element={<Home />} />
+          <Route path="Home" element={<Home />} />
+          <Route path="People" element={<Emails />} />
+          <Route path="Organization" element={<Organizations />} />
+          <Route path="Leads" element={<Lead />} />
+          <Route path="Organizations" element={<Organizations />} />
+          <Route path="Time" element={<Times />} />
+          <Route path="Emails" element={<Emails />} />
         </Routes>
       </Main>
     </Box>

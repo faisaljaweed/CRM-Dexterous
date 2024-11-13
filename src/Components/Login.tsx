@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Inputs } from "./Inputs"; // Assuming you have an Inputs component
@@ -32,23 +31,25 @@ const LoginScreen = () => {
         console.log("res from server", data);
         localStorage.setItem("accessToken", data.data.accessToken);
         localStorage.setItem("refreshToken", data.data.refreshToken);
+        localStorage.setItem("username", data.data.loggedInUser.username);
+        localStorage.setItem("role", data.data.loggedInUser.role);
         console.log("Tokens stored in localStorage:", {
           accessToken: localStorage.getItem("accessToken"),
           refreshToken: localStorage.getItem("refreshToken"),
         });
         toast.success("Registeration Successful");
-        navigate("/drawer");
+        if (data.data.loggedInUser.role === "admin") {
+          navigate("/drawer");
+        } else {
+          navigate("/userDashboard");
+        }
       } else {
         setError("Invalid email or password");
         toast.error("Invalid email or password");
       }
-
-      // console.log("Succesfully", response);
     } catch (error) {
       console.log("Unsuccessfully", error);
     }
-
-    // "http://localhost:8000/api/v1/users/login",
 
     setEmail("");
     setPassword("");
