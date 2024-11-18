@@ -48,6 +48,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
+// Start Style Navbar
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -55,7 +56,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: "#1B5EF0",
+  backgroundColor: "#F96E2A",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -65,7 +66,7 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-
+// End Style Navbar
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -149,6 +150,7 @@ export default function UserDashboard() {
       }}
     >
       <CssBaseline />
+      {/* Start Navbar */}
       <AppBar position="fixed" open={open}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
@@ -190,6 +192,8 @@ export default function UserDashboard() {
           </Menu>
         </Toolbar>
       </AppBar>
+      {/* Start Navbar */}
+      {/* Start Side Bar */}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -197,7 +201,7 @@ export default function UserDashboard() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            backgroundColor: "#101924", // Set background color here
+            backgroundColor: "#C9E6F0", // Set background color here
             color: "white", // Optional: Set text color to white
           },
         }}
@@ -257,6 +261,8 @@ export default function UserDashboard() {
           })}
         </SimpleTreeView>
       </Drawer>
+      {/* End Side Bar */}
+      {/* Start Main Screen */}
       <Main open={open}>
         <DrawerHeader />
         <Routes>
@@ -270,6 +276,7 @@ export default function UserDashboard() {
           <Route path="Emails" element={<Emails />} />
         </Routes>
       </Main>
+      {/* End Main Screen */}
     </Box>
   );
 }

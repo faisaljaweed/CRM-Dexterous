@@ -44,7 +44,8 @@ import { Support } from "../Pages/Support/Support";
 //logo
 import Logo from "../Images/logo.webp";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
+import Home from "../UserPage/Home";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -280,7 +281,7 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
-          <Route path="/" element={<UIDashboard />} />
+          <Route path="/" element={<Home />} />
           <Route path="Dashboard" element={<UIDashboard />} />
           <Route path="People" element={<People />} />
           <Route path="Organization" element={<Organization />} />
