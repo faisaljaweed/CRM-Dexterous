@@ -14,7 +14,14 @@ type User = {
   project: File;
   username: string;
 };
-
+type Task = {
+  _id: string;
+  title: string;
+  description: string;
+  assignTo: string;
+  status: string;
+  project: "";
+};
 export const RunnigTask = () => {
   const [open, setOpen] = useState(false);
   const [addUser, setAddUser] = useState<User[]>([]);
@@ -29,6 +36,54 @@ export const RunnigTask = () => {
   const [status, setStatus] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [user, setUser] = useState<User[]>([]);
+  const [task, setTask] = useState<Task[]>([]);
+  useEffect(() => {
+    const fetchAllTask = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          return;
+        }
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/tasks//getAllTasks",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the token here
+            },
+          }
+        );
+        setTask(res.data.data);
+        console.log("All Task", res.data.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchAllTask();
+  });
+
+  const handledelete = async (index: number) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/tasks/deleteTask/${task[index]._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        // Remove the deleted user from the state
+        const updatedUsers = [...task];
+        updatedUsers.splice(index, 1);
+        setTask(updatedUsers);
+        // toast.success("User deleted successfully");
+      } else {
+        // toast.error("Failed to delete user");
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -161,10 +216,13 @@ export const RunnigTask = () => {
               <th className="w-1/5 text-center border border-gray-700 text-[12px]">
                 Status{" "}
               </th>
+              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+                Action{" "}
+              </th>
             </tr>
           </thead>
-          {/* <tbody>
-            {addUser.map((item, index) => (
+          <tbody>
+            {task.map((item, index) => (
               <tr key={index}>
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.title}
@@ -173,25 +231,28 @@ export const RunnigTask = () => {
                   {item.description}
                 </td>
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.project}
+                  <img className="w-24 h-24" src={item.project} />
                 </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                {/* <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.startDate.toDateString()}
                   <br />
                   {item.startDate.toLocaleTimeString()}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                </td> */}
+                {/* <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.deadline}
-                </td>
+                </td> */}
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.assignTo}
                 </td>
                 <td className="w-1/5 text-center text-[12px] border border-gray-700">
                   {item.status}
                 </td>
+                <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                  <button onClick={() => handledelete(index)}>Delete</button>
+                </td>
               </tr>
             ))}
-          </tbody> */}
+          </tbody>
         </table>
       </div>
       <Modals open={open} handleClose={handleClose}>
