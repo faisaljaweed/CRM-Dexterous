@@ -40,7 +40,7 @@ export const ExpenseManagement = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("");
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editIndex] = useState<number | null>(null);
 
   // Handle modal open/close
   const handleOpen = () => {

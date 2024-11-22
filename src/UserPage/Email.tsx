@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Comment from "./Comment";
+import { useParams } from "react-router-dom";
 type User = {
   _id?: string;
   title: string;
@@ -43,7 +45,11 @@ const Emails = () => {
     };
     getUsers();
   }, []);
+  const { projectId } = useParams<{ projectId: string }>();
 
+  // if (!projectId) {
+  //   return <div>Error: Project ID is missing!</div>;
+  // }
   const handleEditClick = (task: User) => {
     setEditIndex(task);
     setStatus(task.status);
@@ -69,7 +75,7 @@ const Emails = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
+      console.log(response.data);
       // Update State
       setAddUser((prev) =>
         prev.map((task) =>
@@ -92,7 +98,7 @@ const Emails = () => {
           return (
             <div
               key={index}
-              className="flex flex-col w-[25%] overflow-auto h-80 m-8 p-2 border border-[3px] border-gray-400 rounded-lg"
+              className="flex flex-col w-[25%] overflow-auto h-80 m-8 p-2 border-[3px] border-gray-400 rounded-lg"
             >
               <h4 className="text-[20px] font-bold pt-3 pb-3">{item.title}</h4>
               <p className="text-[14px] pb-3">{item.description}</p>
@@ -106,6 +112,7 @@ const Emails = () => {
               >
                 Edit
               </button>
+              <Comment projectId={projectId} />
             </div>
           );
         })}
@@ -178,4 +185,3 @@ const Emails = () => {
   );
 };
 export default Emails;
-// http://localhost:8000/api/v1/tasks/editTask/67335c8e1aadccd17d5dcfa2

@@ -269,6 +269,7 @@ export default function UserDashboard() {
           <Route path="/" element={<Home />} />
           <Route path="Home" element={<Home />} />
           <Route path="People" element={<Emails />} />
+          <Route path="People/:projectId" element={<Emails />} />
           <Route path="Organization" element={<Organizations />} />
           <Route path="Leads" element={<Lead />} />
           <Route path="Organizations" element={<Organizations />} />

@@ -34,7 +34,7 @@ export const RunnigTask = () => {
   // const [deadline, setDeadline] = useState("");
   const [assign, setAssign] = useState(""); // Set current date-time once, and make it fixed
   const [status, setStatus] = useState("");
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editIndex] = useState<number | null>(null);
   const [user, setUser] = useState<User[]>([]);
   const [task, setTask] = useState<Task[]>([]);
   useEffect(() => {

@@ -19,7 +19,7 @@ export const ClientPayment = () => {
   const [amount, setAmount] = useState("");
   const [date] = useState(new Date());
   const [status, setStatus] = useState("");
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editIndex] = useState<number | null>(null);
 
   // Handle modal open/close
   const handleOpen = () => {
