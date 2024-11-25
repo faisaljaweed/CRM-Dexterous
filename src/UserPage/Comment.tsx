@@ -14,7 +14,7 @@ interface Comment {
   };
 }
 
-const Comment = (projectId: CommentProps) => {
+const Comment = ({ projectId }: CommentProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [comment, setComment] = useState("");
 

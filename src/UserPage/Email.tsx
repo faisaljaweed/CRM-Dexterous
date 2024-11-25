@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 type User = {
   _id?: string;
   title: string;
@@ -45,8 +45,9 @@ const Emails = () => {
     };
     getUsers();
   }, []);
-  const { projectId } = useParams<{ projectId: string }>();
-
+  // const { projectId } = useParams<{ projectId: string }>();
+  // console.log("Extracted projectId:", projectId);
+  // console.log("useParams:", useParams);
   // if (!projectId) {
   //   return <div>Error: Project ID is missing!</div>;
   // }
@@ -112,7 +113,7 @@ const Emails = () => {
               >
                 Edit
               </button>
-              <Comment projectId={projectId} />
+              <Comment projectId={item._id} />
             </div>
           );
         })}
