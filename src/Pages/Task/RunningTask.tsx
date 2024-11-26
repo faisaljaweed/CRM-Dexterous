@@ -3,6 +3,17 @@ import { Modals } from "../../Components/Modal";
 import { Inputs } from "../../Components/Inputs";
 import { Buttons } from "../../Components/Button";
 import axios from "axios";
+type CommentProps = {
+  projectId: string | undefined; // projectId can be string or undefined
+};
+
+interface Comment {
+  _id: string;
+  content: string;
+  owner: {
+    username: string; // assuming you want to display the owner's name
+  };
+}
 
 type User = {
   title: string;
@@ -18,7 +29,9 @@ type Task = {
   _id: string;
   title: string;
   description: string;
-  assignTo: string;
+  assignTo: {
+    username: string;
+  };
   status: string;
   project: "";
 };
@@ -59,7 +72,7 @@ export const RunnigTask = () => {
       }
     };
     fetchAllTask();
-  });
+  }, []);
 
   const handledelete = async (index: number) => {
     try {
@@ -192,68 +205,37 @@ export const RunnigTask = () => {
         />
       </div>
       <div className="">
-        <table className="w-full table-fixed border border-gray-700 text-[12px]">
-          <thead>
-            <tr>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Task Name{" "}
-              </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Description
-              </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Project
-              </th>
-              {/* <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Start Date
-              </th> */}
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Assing to
-              </th>
-              {/* <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Tag{" "}
-              </th> */}
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Status{" "}
-              </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
-                Action{" "}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {task.map((item, index) => (
-              <tr key={index}>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
+        <div className=" flex flex-wrap gap-3 overflow-auto h-96">
+          {task.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="flex flex-col w-[25%] overflow-auto h-80 m-8 p-2 border-[3px] border-gray-400 rounded-lg"
+              >
+                <div className="flex justify-center items-center">
+                  <button
+                    onClick={() => handledelete(index)}
+                    className="w-48 mb-2 bg-blue-900 text-white p-2 rounded-lg"
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div className="flex justify-center item-center">
+                  <img src={item.project} alt="" className="w-48 h-48" />
+                </div>
+                <h1>{item.assignTo?.username}</h1>
+                <h4 className="text-[20px] font-bold pt-3 pb-3">
                   {item.title}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.description}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  <img className="w-24 h-24" src={item.project} />
-                </td>
-                {/* <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.startDate.toDateString()}
-                  <br />
-                  {item.startDate.toLocaleTimeString()}
-                </td> */}
-                {/* <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.deadline}
-                </td> */}
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  {item.assignTo}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                </h4>
+                <p className="text-[14px] pb-3">{item.description}</p>
+                <span className="text-[14px] pb-3 font-extrabold">
                   {item.status}
-                </td>
-                <td className="w-1/5 text-center text-[12px] border border-gray-700">
-                  <button onClick={() => handledelete(index)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </span>
+                <ShowComment projectId={item._id} />
+              </div>
+            );
+          })}
+        </div>
       </div>
       <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
@@ -363,3 +345,68 @@ export const RunnigTask = () => {
     </div>
   );
 };
+
+// Commetn Section
+
+const ShowComment = ({ projectId }: CommentProps) => {
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+
+        // Check if the token exists
+        if (!token) {
+          console.error("Token is missing or undefined");
+          return;
+        }
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/comment/getallcomment/${projectId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the token here
+            },
+          }
+        );
+        if (response.data && Array.isArray(response.data.data)) {
+          setComments(response.data.data); // Set the users array
+          // setComments((prevComments) => [...prevComments, newComment]);
+        } else {
+          console.error("User data is not an array:", response.data);
+        }
+
+        console.log(response.data.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchComments();
+  }, []);
+  // Handle comment submission
+
+  return (
+    <div>
+      <div>
+        {comments.map((item: any, index: any) => {
+          return (
+            <div
+              key={index}
+              className="border-2 border-black flex justify-start items-start flex-col pl-2 mt-2"
+            >
+              <p className="text-start text-red-700 font-bold border-b-4 border-red-700">
+                @{item.owner?.username}
+              </p>
+              <p className="text-start font-thin">{item.content}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default ShowComment;
+
+// Comment get Api
+//http://localhost:8000/api/v1/comment/getallcomment/673b7d8f11f22978df0fbee0
