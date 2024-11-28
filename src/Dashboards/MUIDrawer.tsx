@@ -52,6 +52,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
+  // background: "linear-gradient(to right, #392196, #ff69b4)",
+  // minHeight: "100vh",
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -69,6 +71,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
+//AppBar Style
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -76,7 +79,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: "#ffffff",
+  backgroundColor: "#392196",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -97,7 +100,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -105,7 +108,7 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(true);
   };
 
   const handleNavigation = (path: string) => {
@@ -186,9 +189,9 @@ export default function PersistentDrawerLeft() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ color: "#101924" }}
+            sx={{ color: "white" }}
           >
-            Persistent drawer
+            Admin Dashboard
           </Typography>
           <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
             <Avatar></Avatar>
@@ -211,6 +214,7 @@ export default function PersistentDrawerLeft() {
           </Menu>
         </Toolbar>
       </AppBar>
+      {/* SideBar Start*/}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -218,7 +222,7 @@ export default function PersistentDrawerLeft() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            backgroundColor: "#101924", // Set background color here
+            backgroundColor: "#4126ab", // Set background color here
             color: "white", // Optional: Set text color to white
           },
         }}
@@ -226,7 +230,12 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <DrawerHeader
+          style={{
+            backgroundColor: "#392196",
+            borderBottom: "1px solid white",
+          }}
+        >
           <div className="flex items-center justify-center">
             <img className="w-36 h-36" src={Logo} alt="Logo" />
           </div>
@@ -282,7 +291,7 @@ export default function PersistentDrawerLeft() {
         <DrawerHeader />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="Dashboard" element={<UIDashboard />} />
+          <Route path="Dashboard" element={<Home />} />
           <Route path="People" element={<People />} />
           <Route path="Organization" element={<Organization />} />
           <Route path="Customer" element={<Customers />} />

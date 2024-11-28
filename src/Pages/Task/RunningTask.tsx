@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Modals } from "../../Components/Modal";
 import { Inputs } from "../../Components/Inputs";
 import { Buttons } from "../../Components/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 type CommentProps = {
   projectId: string | undefined; // projectId can be string or undefined
@@ -197,11 +198,11 @@ export const RunnigTask = () => {
   return (
     <div className="w-full">
       <div className="flex justify-between pb-3">
-        <h1>Running Task</h1>
+        <h2 className="font-bold text-[20px]">Project & All Task</h2>
         <Buttons
           text="Add User"
           onClick={handleOpen}
-          className="text-white bg-[#1976d2]"
+          className="text-white bg-blue-500 "
         />
       </div>
       <div className="">
@@ -210,27 +211,46 @@ export const RunnigTask = () => {
             return (
               <div
                 key={index}
-                className="flex flex-col w-[25%] overflow-auto h-80 m-8 p-2 border-[3px] border-gray-400 rounded-lg"
+                className="flex flex-col w-[30%] pb-6 bg-gray-200 overflow-auto h-80   border-[3px] border-gray-400 rounded-lg"
               >
-                <div className="flex justify-center items-center">
+                {/* <div className="fixed bg-gray-700 py-2 px-[45px] rounded-lg">
+                  <h2 className="text-start">Project Resources </h2>
+                </div> */}
+                <div className="flex justify-center items-center mt-2">
                   <button
                     onClick={() => handledelete(index)}
-                    className="w-48 mb-2 bg-blue-900 text-white p-2 rounded-lg"
+                    className="w-48 mb-2 bg-blue-500 text-white p-2 rounded-lg"
                   >
                     Delete
                   </button>
                 </div>
-                <div className="flex justify-center item-center">
-                  <img src={item.project} alt="" className="w-48 h-48" />
+                <div className="flex justify-center item-center  mt-2 mb-2">
+                  <img src={item.project} alt="" className="w-56 h-56" />
                 </div>
-                <h1>{item.assignTo?.username}</h1>
-                <h4 className="text-[20px] font-bold pt-3 pb-3">
-                  {item.title}
-                </h4>
-                <p className="text-[14px] pb-3">{item.description}</p>
-                <span className="text-[14px] pb-3 font-extrabold">
-                  {item.status}
-                </span>
+                <section className="pl-2 pr-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
+                  <h1 className="text-[14px] font-bold pt-3 text-start">
+                    Assign :{" "}
+                    <span className="text-[14px] font-bold">
+                      {" "}
+                      {item.assignTo?.username}{" "}
+                    </span>
+                  </h1>
+
+                  <h4 className="text-[14px] font-bold pt-3 pb-3 text-start">
+                    <span className="font-bold"> Title:</span>
+                    {item.title}
+                  </h4>
+                </section>
+                <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
+                  <p className="text-[14px] pb-3 text-start">
+                    <span className="font-bold">Descriptiom :</span>{" "}
+                    {item.description}
+                  </p>
+
+                  <span className="text-[14px]  font-extrabold">
+                    Status : {item.status}
+                  </span>
+                </section>
                 <ShowComment projectId={item._id} />
               </div>
             );
@@ -384,7 +404,29 @@ const ShowComment = ({ projectId }: CommentProps) => {
     fetchComments();
   }, []);
   // Handle comment submission
+  const handleDelete = (index: number) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        return;
+      }
+      const response = axios.delete(
+        `http://localhost:8000/api/v1/comment/deletecomment/${comments[index]._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token here
+          },
+        }
+      );
+      console.log(response);
+      setComments(comments.filter((_, i) => i !== index));
+      console.log(comments);
+    } catch (error) {
+      console.log(`Delete Functionality issue ${error}`);
+    }
+  };
 
+  // http://localhost:8000/api/v1/comment/deletecomment/67489d356d0fd7cce226f6d4
   return (
     <div>
       <div>
@@ -392,11 +434,22 @@ const ShowComment = ({ projectId }: CommentProps) => {
           return (
             <div
               key={index}
-              className="border-2 border-black flex justify-start items-start flex-col pl-2 mt-2"
+              className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500"
+              // className="
+              // border-2 border-black flex justify-start items-start flex-col pl-2 mt-2
+              // "
             >
-              <p className="text-start text-red-700 font-bold border-b-4 border-red-700">
-                @{item.owner?.username}
-              </p>
+              <section className="flex justify-between">
+                <p className="text-start text-blue-500 font-bold border-b-4 border-blue-500">
+                  @{item.owner?.username}
+                </p>
+                <DeleteIcon
+                  sx={{ color: "#3b82f6" }}
+                  onClick={() => {
+                    handleDelete(index);
+                  }}
+                />
+              </section>
               <p className="text-start font-thin">{item.content}</p>
             </div>
           );

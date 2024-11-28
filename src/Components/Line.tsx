@@ -21,6 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 const LineGraph = () => {
   const options: ChartOptions<"line"> = {
     responsive: true,
@@ -28,7 +29,7 @@ const LineGraph = () => {
   };
   return (
     <div className="w-96 h-96">
-      <Line options={options} data={lineChartData} />;
+      <Line className="text-white" options={options} data={lineChartData} />;
     </div>
   );
 };

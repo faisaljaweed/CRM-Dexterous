@@ -18,7 +18,7 @@ import { UserData } from "./userData";
 // import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
 
 //logo
-import Logo from "../Images/logo.webp";
+// import Logo from "../Images/logo.webp";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import Home from "../UserPage/Home";
 import Organizations from "../UserPage/Organization";
@@ -56,7 +56,7 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  backgroundColor: "#F96E2A",
+  backgroundColor: "#392196",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -167,9 +167,9 @@ export default function UserDashboard() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ color: "#101924" }}
+            sx={{ color: "white" }}
           >
-            Persistent drawer
+            User Dashboard
           </Typography>
           <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
             <Avatar></Avatar>
@@ -201,17 +201,22 @@ export default function UserDashboard() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            backgroundColor: "#C9E6F0", // Set background color here
-            color: "white", // Optional: Set text color to white
+            backgroundColor: "#4126ab", // Set background color here
+            color: "white", /// Optional: Set text color to white
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <DrawerHeader
+          style={{
+            backgroundColor: "#392196",
+            borderBottom: "1px solid white",
+          }}
+        >
           <div className="flex items-center justify-center">
-            <img className="w-36 h-36" src={Logo} alt="Logo" />
+            {/* <img className="w-36 h-36" src={Logo} alt="Logo" /> */}
           </div>
           <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
             {theme.direction === "ltr" ? (

@@ -180,27 +180,27 @@ export const People = () => {
     <div className="w-full">
       <Buttons
         onClick={handleOpen}
-        className="text-white bg-[#1976d2] "
+        className="text-white bg-[#3b82f6] "
         text="Add User"
       />
 
       <div>
-        <table className="w-full table-fixed border border-gray-700 mt-2">
+        <table className="w-full table-fixed border border-[#3b82f6]  mt-2">
           <thead>
             <tr>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+              <th className="w-1/5 text-center border-4 border-[#3b82f6] text-white font-bold  text-[20px]">
                 Name
               </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+              <th className="w-1/5 text-center border-4 border-[#3b82f6] text-white font-bold  text-[20px]">
                 Email
               </th>
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+              <th className="w-1/5 text-center border-4 border-[#3b82f6] text-white font-bold  text-[20px]">
                 Role
               </th>
-              {/* <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+              {/* <th className="w-1/5 text-center border border-[#3b82f6] text-white font-bold  text-[12px]">
                 Full Name
               </th> */}
-              <th className="w-1/5 text-center border border-gray-700 text-[12px]">
+              <th className="w-1/12 text-center border-4 border-[#3b82f6] text-white font-bold  text-[20px]">
                 Actions
               </th>
             </tr>
@@ -215,19 +215,19 @@ export const People = () => {
                     </Avatar>
                     {item.name}
                   </td> */}
-                  <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                  <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
                     {item.username}
                   </td>
-                  <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                  <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
                     {item.email}
                   </td>
-                  <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                  <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
                     {item.role}
                   </td>
-                  {/* <td className="w-1/5 text-center text-[12px] border border-gray-700">
+                  {/* <td className="w-1/5 text-start pl-2 text-[12px] border border-gray-700 text-white">
                     {item.status}
                   </td> */}
-                  <td className="w-1/5 text-center border-gray-700">
+                  <td className="w-1/12 text-center pl-2 border-2 border-[#3b82f6] text-white">
                     <DeleteIcon
                       fontSize="small"
                       onClick={() => handleDelete(index)}

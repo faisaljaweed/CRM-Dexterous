@@ -91,15 +91,18 @@ const Comment = ({ projectId }: CommentProps) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex mt-3">
         <input
           type="text"
           placeholder="Enter your comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="border rounded px-2 py-1 max-w-full mt-2"
+          className="border rounded px-2 py-1 max-w-full mt-2 ml-1"
         />
-        <button type="submit" className="ml-2">
+        <button
+          type="submit"
+          className="ml-2 mt-2 size-8 justify-center flex items-center "
+        >
           <SendIcon />
         </button>
       </form>
@@ -109,9 +112,9 @@ const Comment = ({ projectId }: CommentProps) => {
           return (
             <div
               key={index}
-              className="border-2 border-black flex justify-start items-start flex-col pl-2 mt-2"
+              className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500"
             >
-              <p className="text-start text-red-700 font-bold border-b-4 border-red-700">
+              <p className="text-start text-blue-500 font-bold border-b-4 border-blue-500">
                 @{item.owner?.username}
               </p>
               <p className="text-start font-thin">{item.content}</p>
