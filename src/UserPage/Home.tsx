@@ -1,7 +1,7 @@
 import BarChart from "../Components/Chart";
 import LineGraph from "../Components/Line";
 import PieChart from "../Components/Pie";
-import LineBarGraph from "../LineBarGraph";
+// import LineBarGraph from "../LineBarGraph";
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
       </main>
       <main className="flex justify-center items-center">
         <PieChart />
-        <LineBarGraph />
+        {/* <LineBarGraph /> */}
       </main>
     </>
   );

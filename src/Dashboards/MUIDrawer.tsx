@@ -42,7 +42,7 @@ import { NoticeBoard } from "../Pages/Notice Board/NoticeBoard";
 import { Setting } from "../Pages/Setting/Setting";
 import { Support } from "../Pages/Support/Support";
 //logo
-import Logo from "../Images/logo.webp";
+// import Logo from "../Images/logo.webp";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 // import axios from "axios";
 import Home from "../UserPage/Home";
@@ -236,9 +236,9 @@ export default function PersistentDrawerLeft() {
             borderBottom: "1px solid white",
           }}
         >
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <img className="w-36 h-36" src={Logo} alt="Logo" />
-          </div>
+          </div> */}
           <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />

@@ -4,6 +4,7 @@ import { Inputs } from "../../Components/Inputs";
 import { Buttons } from "../../Components/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { toast } from "react-toastify";
 type CommentProps = {
   projectId: string | undefined; // projectId can be string or undefined
 };
@@ -19,8 +20,6 @@ interface Comment {
 type User = {
   title: string;
   description: string;
-  // startDate: Date;
-  // deadline: string;
   assignTo: string;
   status: string;
   project: File;
@@ -46,11 +45,14 @@ export const RunnigTask = () => {
   // const [startDate, setStartDate] = useState(new Date());
 
   // const [deadline, setDeadline] = useState("");
-  const [assign, setAssign] = useState(""); // Set current date-time once, and make it fixed
+  const [assign, setAssign] = useState("");
   const [status, setStatus] = useState("");
   const [editIndex] = useState<number | null>(null);
   const [user, setUser] = useState<User[]>([]);
   const [task, setTask] = useState<Task[]>([]);
+  const [totalProjects, setTotalProjects] = useState("");
+  const [tasksChanged, setTasksChanged] = useState(false);
+
   useEffect(() => {
     const fetchAllTask = async () => {
       try {
@@ -67,7 +69,7 @@ export const RunnigTask = () => {
           }
         );
         setTask(res.data.data);
-        console.log("All Task", res.data.data);
+        // console.log("All Task", res.data.data);
       } catch (error) {
         console.log("Error", error);
       }
@@ -85,6 +87,7 @@ export const RunnigTask = () => {
           },
         }
       );
+      handleTaskChange();
       if (response.status === 200) {
         // Remove the deleted user from the state
         const updatedUsers = [...task];
@@ -118,7 +121,7 @@ export const RunnigTask = () => {
           }
         );
         setUser(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
       } catch (error) {
         console.log("Error", error);
       }
@@ -157,7 +160,7 @@ export const RunnigTask = () => {
     //   username: assign,
     // };
     try {
-      const response = axios.post(
+      const response = await axios.post(
         "http://localhost:8000/api/v1/tasks/creat-task",
         formData,
         {
@@ -166,7 +169,14 @@ export const RunnigTask = () => {
           },
         }
       );
-      console.log((await response).data);
+      handleTaskChange();
+      if (response.status === 200) {
+        toast.success("Project created successfully");
+        console.log(response.data.data);
+        // Add the new user from response data to the state
+        setTask([...task, response.data.data]);
+      }
+      // console.log(response.data);
     } catch (error) {
       console.log("Error", error);
     }
@@ -191,16 +201,42 @@ export const RunnigTask = () => {
     setStatus("");
   };
 
-  // axios
-  //   .post("http://localhost:8000/api/v1/tasks/creat-task")
-  //   .then((res) => console.log(res.data))
-  //   .catch((err) => console.log(err));
+  useEffect(() => {
+    const TotalProjects = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          return;
+        }
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/tasks/totalNoofTask`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setTotalProjects(response.data.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    TotalProjects();
+  }, [tasksChanged]);
+  const handleTaskChange = async () => {
+    // Logic to add or delete a task
+    // After successfully adding or deleting, toggle tasksChanged
+    setTasksChanged((prev) => !prev);
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between pb-3">
-        <h2 className="font-bold text-[20px]">Project & All Task</h2>
+        <h2 className="font-bold text-[20px] text-white">
+          Total Projects: {totalProjects}
+        </h2>
         <Buttons
-          text="Add User"
+          text="Add Projects"
           onClick={handleOpen}
           className="text-white bg-blue-500 "
         />
@@ -393,10 +429,10 @@ const ShowComment = ({ projectId }: CommentProps) => {
           setComments(response.data.data); // Set the users array
           // setComments((prevComments) => [...prevComments, newComment]);
         } else {
-          console.error("User data is not an array:", response.data);
+          // console.error("User data is not an array:", response.data);
         }
 
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } catch (error) {
         console.log("Error", error);
       }
@@ -420,7 +456,7 @@ const ShowComment = ({ projectId }: CommentProps) => {
       );
       console.log(response);
       setComments(comments.filter((_, i) => i !== index));
-      console.log(comments);
+      // console.log(comments);
     } catch (error) {
       console.log(`Delete Functionality issue ${error}`);
     }

@@ -29,6 +29,7 @@ export const People = () => {
   const [password, setPassword] = useState("");
   const [handleVisible, setHandleVisible] = useState(false);
   const [addUser, setAddUser] = useState<User[]>([]);
+  const [count, setCount] = useState([]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -106,7 +107,7 @@ export const People = () => {
 
           // Update the user in the state with data from response
           const updatedUsers = [...addUser];
-          updatedUsers[editIndex] = response.data; // use updated data from server
+          updatedUsers[editIndex] = response.data.user; // use updated data from server
           setAddUser(updatedUsers);
         } else {
           toast.error("Failed to update user");
@@ -125,9 +126,9 @@ export const People = () => {
 
         if (response.status === 201) {
           toast.success("User created successfully");
-
+          console.log(response);
           // Add the new user from response data to the state
-          setAddUser((prevUsers) => [...prevUsers, response.data]);
+          setAddUser((prevUsers) => [...prevUsers, response.data.data]);
         }
       }
 
@@ -175,14 +176,41 @@ export const People = () => {
     setEditIndex(index);
     handleOpen(); // Open the modal with the user data
   };
-
+  useEffect(() => {
+    const getCount = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+          return;
+        }
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/users/count`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCount(response.data.data);
+        // console.log(response.data.data);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    getCount();
+  });
   return (
     <div className="w-full">
-      <Buttons
-        onClick={handleOpen}
-        className="text-white bg-[#3b82f6] "
-        text="Add User"
-      />
+      <section className="flex justify-between">
+        <Buttons
+          onClick={handleOpen}
+          className="text-white bg-[#3b82f6] "
+          text="Add User"
+        />
+        <div>
+          <h1 className="text-white text-[30px]">Total Users : {count}</h1>
+        </div>
+      </section>
 
       <div>
         <table className="w-full table-fixed border border-[#3b82f6]  mt-2">
@@ -209,24 +237,16 @@ export const People = () => {
             {Array.isArray(addUser) && addUser.length > 0 ? (
               addUser.map((item, index) => (
                 <tr key={index}>
-                  {/* <td className="  flex justify-start items-center text-[12px]  gap-2  border border-gray-700 ">
-                    <Avatar className="flex items-center justify-center  border border-gray-700">
-                      {item.name.charAt(0)}
-                    </Avatar>
-                    {item.name}
-                  </td> */}
                   <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
-                    {item.username}
+                    {item?.username}
                   </td>
                   <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
-                    {item.email}
+                    {item?.email}
                   </td>
                   <td className="w-1/5 text-start pl-2 text-[12px] border-2 border-[#3b82f6] text-white">
-                    {item.role}
+                    {item?.role}
                   </td>
-                  {/* <td className="w-1/5 text-start pl-2 text-[12px] border border-gray-700 text-white">
-                    {item.status}
-                  </td> */}
+
                   <td className="w-1/12 text-center pl-2 border-2 border-[#3b82f6] text-white">
                     <DeleteIcon
                       fontSize="small"
@@ -314,7 +334,6 @@ export const People = () => {
                 setPassword(e.target.value)
               }
             />
-
             <div className="absolute right-2 cursor-pointer">
               {handleVisible ? (
                 <VisibilityIcon onClick={() => setHandleVisible(false)} />

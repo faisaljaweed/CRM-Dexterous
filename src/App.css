@@ -4,7 +4,7 @@
   padding: 2rem;
   text-align: center;
 }
-#root {
+body {
   background: linear-gradient(to right bottom, #392196, #ff69b4);
   width: 100%;
 }

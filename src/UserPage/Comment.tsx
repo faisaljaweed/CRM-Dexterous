@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SendIcon from "@mui/icons-material/Send";
+import { toast } from "react-toastify";
 
 type CommentProps = {
   projectId: string | undefined; // projectId can be string or undefined
 };
 
-interface Comment {
+type Comment = {
   _id: string;
   content: string;
   owner: {
     username: string; // assuming you want to display the owner's name
   };
-}
+};
 
 const Comment = ({ projectId }: CommentProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -24,7 +25,7 @@ const Comment = ({ projectId }: CommentProps) => {
 
         // Check if the token exists
         if (!token) {
-          console.error("Token is missing or undefined");
+          toast.error("Token is missing or undefined");
           return;
         }
         const response = await axios.get(
@@ -35,14 +36,7 @@ const Comment = ({ projectId }: CommentProps) => {
             },
           }
         );
-        if (response.data && Array.isArray(response.data.data)) {
-          setComments(response.data.data); // Set the users array
-          // setComments((prevComments) => [...prevComments, newComment]);
-        } else {
-          console.error("User data is not an array:", response.data);
-        }
-
-        console.log(response.data.data);
+        setComments(response.data.data);
       } catch (error) {
         console.log("Error", error);
       }
@@ -50,14 +44,15 @@ const Comment = ({ projectId }: CommentProps) => {
     fetchComments();
   }, []);
   // Handle comment submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!comment) {
-      alert("Comment is required!");
+      toast.error("Comment is required!");
       return;
     }
-    console.log("Project Id", projectId);
+
+    // console.log("Project Id", projectId);
     try {
       const token = localStorage.getItem("accessToken");
       if (!token) {
@@ -77,13 +72,11 @@ const Comment = ({ projectId }: CommentProps) => {
           },
         }
       );
-
-      console.log("Comment added:", response.data.data);
-
-      // Update state to include the new comment
-      const newComment = response.data.data;
-      setComments((prevComments) => [...prevComments, newComment]);
-      setComment(""); // Clear the input field
+      console.log(response.data.data);
+      toast.success("Comment created successfully");
+      // setComments((prevComments) => [...prevComments, response.data.data]);
+      setComments([...comments, response.data.data]);
+      setComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -108,7 +101,7 @@ const Comment = ({ projectId }: CommentProps) => {
       </form>
 
       <div>
-        {comments.map((item: any, index: any) => {
+        {comments.map((item: Comment, index: number) => {
           return (
             <div
               key={index}
@@ -127,6 +120,3 @@ const Comment = ({ projectId }: CommentProps) => {
 };
 
 export default Comment;
-
-// Comment get Api
-//http://localhost:8000/api/v1/comment/getallcomment/673b7d8f11f22978df0fbee0

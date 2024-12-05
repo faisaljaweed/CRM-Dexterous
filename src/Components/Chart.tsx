@@ -31,3 +31,63 @@ const BarChart = () => {
   );
 };
 export default BarChart;
+// import { useEffect, useState } from "react";
+// import { Bar } from "react-chartjs-2";
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   BarElement,
+//   Title,
+//   Tooltip,
+//   Legend,
+//   ChartOptions,
+//   ChartData,
+// } from "chart.js";
+// import axios from "axios";
+// // import { BarChartData } from "./Fake_Data";
+
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   BarElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
+// const BarChart = () => {
+//   const options: ChartOptions<"bar"> = {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//   };
+//   const [graphData, setGraphData] = useState<ChartData<"bar">>();
+//   useEffect(() => {
+//     const getAllTask = () => {
+//       try {
+//         const token = localStorage.getItem("accessToken");
+//         if (!token) {
+//           return;
+//         }
+//         const response = axios.get(
+//           "http://localhost:8000/api/v1/dashboard/getalltasks",
+//           {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//             },
+//           }
+//         );
+//         console.log(response);
+//       } catch (error) {
+//         console.log("Error", error);
+//       }
+//     };
+//     getAllTask();
+//   }, []);
+//   return (
+//     <div>
+//       <Bar options={options} data={graphData} />
+//     </div>
+//   );
+// };
+
+// export default BarChart;

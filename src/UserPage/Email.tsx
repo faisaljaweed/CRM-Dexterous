@@ -37,7 +37,7 @@ const Emails = () => {
           console.error("User data is not an array:", response.data);
         }
 
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } catch (error) {
         console.log("Error", error);
       }
@@ -87,44 +87,43 @@ const Emails = () => {
 
   return (
     <div>
-      <div className=" flex flex-wrap gap-3 overflow-auto h-96">
-        {addUser.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="flex flex-col w-[30%] pb-6  bg-gray-200 overflow-auto h-80   border-[3px] border-gray-400 rounded-lg"
-            >
-              <section className="pl-2 pr-2  mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-                <h4 className="text-[20px] font-bold pt-3 pb-3 text-start">
-                  Title : {item.title}
-                </h4>
-              </section>
-              <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-                <p className="text-[14px] pb-3 text-start">
-                  <span className="font-bold">Description : </span>{" "}
-                  {item.description}
-                </p>
-              </section>
-              <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-                <span className="text-[14px] pb-3 font-extrabold">
-                  {item.status}
-                </span>
-              </section>
-              <div className="flex justify-center item-center  mt-2 mb-2">
-                <img src={item.project} className="w-48 h-48 " />
-              </div>
-
-              <button
-                onClick={() => handleEditClick(item)}
-                className="flex justify-center items-center mt-2 "
-              >
-                Edit
-              </button>
-              <Comment projectId={item._id} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-auto h-96">
+        {addUser.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col pb-6 bg-gray-200 overflow-auto h-80 border-[3px] border-gray-400 rounded-lg"
+          >
+            <section className="pl-2 pr-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
+              <h4 className="text-[20px] font-bold pt-3 pb-3 text-start">
+                Title : {item.title}
+              </h4>
+            </section>
+            <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
+              <p className="text-[14px] pb-3 text-start">
+                <span className="font-bold">Description : </span>{" "}
+                {item.description}
+              </p>
+            </section>
+            <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
+              <span className="text-[14px] pb-3 font-extrabold">
+                {item.status}
+              </span>
+            </section>
+            <div className="flex justify-center item-center mt-2 mb-2">
+              <img src={item.project} className="w-48 h-48" />
             </div>
-          );
-        })}
+
+            <button
+              onClick={() => handleEditClick(item)}
+              className="flex justify-center items-center mt-2"
+            >
+              Edit
+            </button>
+            <Comment projectId={item._id} />
+          </div>
+        ))}
       </div>
+
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
