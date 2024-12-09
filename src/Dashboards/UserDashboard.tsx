@@ -11,20 +11,16 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import { UserData } from "./userData";
-// Pages
-// import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
 
 //logo
-// import Logo from "../Images/logo.webp";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import Home from "../UserPage/Home";
 import Organizations from "../UserPage/Organization";
 import Lead from "../UserPage/Lead";
 import Times from "../UserPage/Time";
 import Emails from "../UserPage/Email";
+import UserData from "./userData";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -91,14 +87,6 @@ export default function UserDashboard() {
   const handleNavigation = (path: string) => {
     navigate(path);
     handleDrawerClose();
-  };
-
-  const RandomId = () => `id-${Math.random()}`;
-
-  const handleItemClick = (text: string, hasSubItems: boolean) => {
-    if (!hasSubItems) {
-      handleNavigation(text.toLowerCase()); // Navigate if no sub-items
-    }
   };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -227,44 +215,8 @@ export default function UserDashboard() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <SimpleTreeView>
-          {UserData.map((item, index) => {
-            return (
-              <TreeItem
-                sx={{
-                  cursor: "pointer",
-                  color: "white",
-                  ":hover": { backgroundColor: "primary.dark" },
-                  ":active": { backgroundColor: "primary.light" },
-                }}
-                itemId={RandomId()}
-                label={item.text}
-                key={index}
-                onClick={() => handleItemClick(item.text, !!item.subItems)}
-              >
-                {item.subItems?.map((subItem, subIndex) => {
-                  return (
-                    <TreeItem
-                      key={subIndex}
-                      sx={{
-                        cursor: "pointer",
-                        color: "white",
-                        ":hover": { backgroundColor: "primary.dark" },
-                        ":active": { backgroundColor: "primary.light" },
-                      }}
-                      itemId={RandomId()}
-                      label={subItem.text}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleNavigation(subItem.text.toLowerCase());
-                      }}
-                    />
-                  );
-                })}
-              </TreeItem>
-            );
-          })}
-        </SimpleTreeView>
+
+        <UserData />
       </Drawer>
       {/* End Side Bar */}
       {/* Start Main Screen */}
