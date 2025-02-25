@@ -30,15 +30,15 @@ const UserData = () => {
     },
 
     ...(role === "sales" ? [{ text: "Leads" }] : []),
-    {
-      text: "Organizations",
-    },
-    {
-      text: "Time",
-    },
-    {
-      text: "Emails",
-    },
+    // {
+    //   text: "Organizations",
+    // },
+    // {
+    //   text: "Time",
+    // },
+    // {
+    //   text: "Emails",
+    // },
   ];
   return (
     <div>

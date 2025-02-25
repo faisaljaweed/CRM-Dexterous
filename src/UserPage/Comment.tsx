@@ -29,7 +29,7 @@ const Comment = ({ projectId }: CommentProps) => {
           return;
         }
         const response = await axios.get(
-          `http://localhost:8000/api/v1/comment/getallcomment/${projectId}`,
+          `https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/${projectId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -62,7 +62,7 @@ const Comment = ({ projectId }: CommentProps) => {
 
       // Send the comment to the backend
       const response = await axios.post(
-        `http://localhost:8000/api/v1/comment/add-comment/${projectId}`,
+        `https://crm-backend-sage.vercel.app/api/v1/comment/add-comment/${projectId}`,
         {
           content: comment,
         },

@@ -24,7 +24,7 @@ const Emails = () => {
           return;
         }
         const response = await axios.get(
-          "http://localhost:8000/api/v1/tasks/show-task",
+          "https://crm-backend-sage.vercel.app/api/v1/tasks/show-task",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -60,7 +60,7 @@ const Emails = () => {
       }
 
       const response = await axios.patch(
-        `http://localhost:8000/api/v1/tasks/editTask/${editIndex._id}`,
+        `https://crm-backend-sage.vercel.app/api/v1/tasks/editTask/${editIndex._id}`,
         {
           project: newProject,
           status: status,

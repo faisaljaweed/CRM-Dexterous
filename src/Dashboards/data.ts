@@ -4,7 +4,7 @@ export const Data = [
   },
   {
     text: "Staff",
-    subItems: [{ text: "People" }, { text: "Organization" }],
+    subItems: [{ text: "People" }, { text: "Running Task" }],
   },
   // {
   //   text: "Customer",
@@ -25,10 +25,10 @@ export const Data = [
   //     // { text: "Transfer Report" },
   //   ],
   // },
-  {
-    text: "Task",
-    subItems: [{ text: "Running Task" }, { text: "Archived Task" }],
-  },
+  // {
+  //   text: "Task",
+  //   subItems: [{ text: "Running Task" }, { text: "Archived Task" }],
+  // },
   // {
   //   text: "Account",
   //   subItems: [{ text: "Client Payment" }, { text: "Expense Management" }],

@@ -37,7 +37,7 @@ const Dashboard = () => {
         }
 
         const res = await axios.get(
-          "http://localhost:8000/api/v1/tasks/getAllTasks",
+          "https://crm-backend-sage.vercel.app/api/v1/tasks/getAllTasks",
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -54,7 +54,7 @@ export const People = () => {
           return;
         }
         const response = await axios.get(
-          "http://localhost:8000/api/v1/users/getAllUsers",
+          "https://crm-backend-sage.vercel.app/api/v1/users/getAllUsers",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -93,7 +93,7 @@ export const People = () => {
       if (editIndex !== null) {
         // Updating existing user
         const response = await axios.put(
-          `http://localhost:8000/api/v1/users/updateUser/${addUser[editIndex]._id}`,
+          `https://crm-backend-sage.vercel.app/api/v1/users/updateUser/${addUser[editIndex]._id}`,
           userData,
           {
             headers: {
@@ -115,7 +115,7 @@ export const People = () => {
       } else {
         // Adding new user
         const response = await axios.post(
-          "http://localhost:8000/api/v1/users/signup",
+          "https://crm-backend-sage.vercel.app/api/v1/users/signup",
           userData,
           {
             headers: {
@@ -142,7 +142,7 @@ export const People = () => {
   const handleDelete = async (index: number) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/api/v1/users/deleteUser/${addUser[index]._id}`,
+        `https://crm-backend-sage.vercel.app/api/v1/users/deleteUser/${addUser[index]._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -184,7 +184,7 @@ export const People = () => {
           return;
         }
         const response = await axios.get(
-          `http://localhost:8000/api/v1/users/count`,
+          `https://crm-backend-sage.vercel.app/api/v1/users/count`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
