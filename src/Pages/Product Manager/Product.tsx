@@ -26,11 +26,13 @@ export const Product = () => {
   // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-      setThumbnail(url); // Store the URL in the thumbnail state
+    if (selectedFile) {
+      if (file) {
+        setSelectedFile(file);
+        const url = URL.createObjectURL(file);
+        setPreviewUrl(url);
+        setThumbnail(url); // Store the URL in the thumbnail state
+      }
     }
   };
 
