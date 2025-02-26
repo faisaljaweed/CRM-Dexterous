@@ -11,8 +11,8 @@ import {
   ChartOptions,
 } from "chart.js";
 import { lineChartData } from "./Fake_Data";
-import { useEffect } from "react";
-import axios from "axios";
+// import { useEffect } from "react";
+// import axios from "axios";
 
 ChartJS.register(
   CategoryScale,

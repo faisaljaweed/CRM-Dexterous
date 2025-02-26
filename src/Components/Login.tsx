@@ -4,7 +4,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Inputs } from "./Inputs"; // Assuming you have an Inputs component
 //logo
-import Logo from "../Images/logo.webp";
+// import Logo from "../Images/logo.webp";
 import { toast } from "react-toastify";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");

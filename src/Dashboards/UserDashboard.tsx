@@ -84,10 +84,10 @@ export default function UserDashboard() {
     setOpen(true);
   };
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
-    handleDrawerClose();
-  };
+  // const handleNavigation = (path: string) => {
+  //   navigate(path);
+  //   handleDrawerClose();
+  // };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);

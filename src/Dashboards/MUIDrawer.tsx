@@ -15,7 +15,7 @@ import { SimpleTreeView, TreeItem } from "@mui/x-tree-view";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { Data } from "./data";
 // Pages
-import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
+// import { UIDashboard } from "../Pages/Dashboard/UIdashboard";
 import { People } from "../Pages/Staff/People";
 import { Organization } from "../Pages/Staff/Organization";
 import { Customers } from "../Pages/Customer/Customer";

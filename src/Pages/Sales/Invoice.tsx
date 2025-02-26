@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modals } from "../../Components/Modal";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Inputs } from "../../Components/Inputs";
 import { Buttons } from "../../Components/Button";
 
@@ -29,8 +29,8 @@ export const Invoice = () => {
   const [dueDate, setDueDate] = useState("");
   const [status, setStatus] = useState("");
   const [contact, setContact] = useState("");
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const navigate = useNavigate();
+  const [editIndex] = useState<number | null>(null);
+  // const navigate = useNavigate();
 
   // Handle modal open/close
   const handleOpen = () => setOpen(true);
