@@ -27,7 +27,7 @@ export const People = () => {
   const [role, setRole] = useState("");
   const [status, setStatus] = useState("");
   const [password, setPassword] = useState("");
-  const [handleVisible, setHandleVisible] = useState(false);
+  const [handleVisible] = useState(false);
   const [addUser, setAddUser] = useState<User[]>([]);
   const [count, setCount] = useState([]);
 
