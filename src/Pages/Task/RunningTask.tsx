@@ -15,6 +15,7 @@ interface Comment {
   owner: {
     username: string; // assuming you want to display the owner's name
   };
+  createdAt?: string; // Add createdAt property, optional if not always present
 }
 
 type User = {
@@ -61,7 +62,7 @@ export const RunnigTask = () => {
           return;
         }
         const res = await axios.get(
-          "https://crm-backend-sage.vercel.app/api/v1/tasks/getAllTasks",
+          "https://crm-backend-sage.vercel.appapi/v1/tasks/getAllTasks",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -80,7 +81,7 @@ export const RunnigTask = () => {
   const handledelete = async (index: number) => {
     try {
       const response = await axios.delete(
-        `https://crm-backend-sage.vercel.app/api/v1/tasks/deleteTask/${task[index]._id}`,
+        `https://crm-backend-sage.vercel.appapi/v1/tasks/deleteTask/${task[index]._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -113,7 +114,7 @@ export const RunnigTask = () => {
           return;
         }
         const res = await axios.get(
-          "https://crm-backend-sage.vercel.app/api/v1/users/getAllUsers",
+          "https://crm-backend-sage.vercel.appapi/v1/users/getAllUsers",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -162,7 +163,7 @@ export const RunnigTask = () => {
 
     try {
       const response = await axios.post(
-        "https://crm-backend-sage.vercel.app/api/v1/tasks/creat-task",
+        "https://crm-backend-sage.vercel.appapi/v1/tasks/creat-task",
         formData,
         {
           headers: {
@@ -210,7 +211,7 @@ export const RunnigTask = () => {
           return;
         }
         const response = await axios.get(
-          `https://crm-backend-sage.vercel.app/api/v1/tasks/totalNoofTask`,
+          `https://crm-backend-sage.vercel.appapi/v1/tasks/totalNoofTask`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -233,16 +234,114 @@ export const RunnigTask = () => {
   return (
     <div className="w-full">
       <div className="flex justify-between pb-3">
-        <h2 className="font-bold text-[20px] text-white">
-          Total Projects: {totalProjects}
+        <h2 className="font-bold text-xl text-white">
+          Projects: {totalProjects}
         </h2>
         <Buttons
           text="Add Projects"
           onClick={handleOpen}
-          className="text-white bg-blue-500 "
+          className="text-white bg-[#464de7] "
         />
       </div>
-      <div className="">
+      <div className="p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {task.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200 hover:border-blue-400"
+              style={{ maxHeight: "400px" }}
+            >
+              {/* Image Preview */}
+              {item.project && (
+                <div className="relative h-48 bg-gray-100 overflow-hidden">
+                  <img
+                    src={item.project}
+                    alt="Task preview"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute top-2 right-2">
+                    <button
+                      onClick={() => handledelete(index)}
+                      className="p-2 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition-colors"
+                      aria-label="Delete task"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Task Details */}
+              <div className="p-4 flex-1 flex flex-col overflow-y-auto">
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                      {item.status}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      Assigned to:{" "}
+                      <span className="font-medium">
+                        {item.assignTo?.username}
+                      </span>
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-gray-800 mb-1 line-clamp-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">
+                    {item.description}
+                  </p>
+                </div>
+
+                {/* Comments Section */}
+                <div className="mt-auto pt-3 border-t border-gray-100">
+                  <ShowComment projectId={item._id} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {task.length === 0 && (
+          <div className="text-center py-12">
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">
+              No tasks found
+            </h3>
+            <p className="mt-1 text-gray-500">
+              Create your first task to get started
+            </p>
+          </div>
+        )}
+      </div>
+      {/* <div className="">
         <div className=" flex flex-wrap gap-3 overflow-auto h-96">
           {task.map((item, index) => {
             return (
@@ -250,9 +349,7 @@ export const RunnigTask = () => {
                 key={index}
                 className="flex flex-col w-[30%] pb-6 bg-gray-200 overflow-auto h-80   border-[3px] border-gray-400 rounded-lg"
               >
-                {/* <div className="fixed bg-gray-700 py-2 px-[45px] rounded-lg">
-                  <h2 className="text-start">Project Resources </h2>
-                </div> */}
+             
                 <div className="flex justify-center items-center mt-2">
                   <button
                     onClick={() => handledelete(index)}
@@ -293,13 +390,13 @@ export const RunnigTask = () => {
             );
           })}
         </div>
-      </div>
-      <Modals open={open} handleClose={handleClose}>
+      </div> */}
+      {/* <Modals open={open} handleClose={handleClose}>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-          <h2>Create Task</h2>
-          {/* Form Fields */}
+          <h2>Create Task</h2> */}
+      {/* Form Fields */}
 
-          <label htmlFor="task">Task Name</label>
+      {/* <label htmlFor="task">Task Name</label>
           <Inputs
             id="task"
             type="text"
@@ -321,8 +418,8 @@ export const RunnigTask = () => {
             className="p-2 border-black border-2 w-full"
           />
           <div className="flex flex-row gap-2">
-            <div className="flex flex-col">
-              {/* <label htmlFor="start date">Task Start Date</label>
+            <div className="flex flex-col"> */}
+      {/* <label htmlFor="start date">Task Start Date</label>
               <input
                 id="start date"
                 type="text"
@@ -332,7 +429,7 @@ export const RunnigTask = () => {
                 className="p-2 border-black border-2 w-full"
                 required
               /> */}
-              <label htmlFor="project">Project</label>
+      {/* <label htmlFor="project">Project</label>
               <Inputs
                 id="project"
                 type="file"
@@ -344,8 +441,8 @@ export const RunnigTask = () => {
                   }
                 }}
               />
-            </div>
-            {/* <div className="flex flex-col">
+            </div> */}
+      {/* <div className="flex flex-col">
               <label htmlFor="task deadlines">Task Deadlines</label>
               <Inputs
                 id="task deadlines"
@@ -357,7 +454,7 @@ export const RunnigTask = () => {
                 }
               />
             </div> */}
-          </div>
+      {/* </div>
           <div className="flex flex-row gap-2">
             <div className="flex flex-col w-full">
               <label htmlFor="assign to">Assign To</label>
@@ -398,6 +495,178 @@ export const RunnigTask = () => {
             text={editIndex !== null ? "Update User" : "Add User"}
           />
         </form>
+      </Modals> */}
+      <Modals open={open} handleClose={handleClose}>
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-xl overflow-scroll h-[90vh]">
+          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-1">
+                {editIndex !== null ? "Update Task" : "Create New Task"}
+              </h2>
+              <p className="text-gray-600 text-sm">
+                {editIndex !== null
+                  ? "Modify your task details"
+                  : "Fill in the task information below"}
+              </p>
+            </div>
+
+            {/* Task Name */}
+            <div className="space-y-2">
+              <label
+                htmlFor="task"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Task Name <span className="text-red-500">*</span>
+              </label>
+              <Inputs
+                id="task"
+                type="text"
+                placeholder="Enter task name"
+                value={title}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTitle(e.target.value)
+                }
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                // required
+              />
+            </div>
+
+            {/* Task Description */}
+            <div className="space-y-2">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Description <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="description"
+                placeholder="Describe the task details..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                required
+              />
+            </div>
+
+            {/* File Upload */}
+            <div className="space-y-2">
+              <label
+                htmlFor="project"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Attach Files
+              </label>
+              <div className="flex items-center justify-center w-full">
+                <label className="flex flex-col w-full border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all rounded-lg cursor-pointer bg-white hover:bg-blue-50">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4">
+                    <svg
+                      className="w-8 h-8 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                      ></path>
+                    </svg>
+                    <p className="mb-2 text-sm text-gray-500">
+                      <span className="font-semibold">Click to upload</span> or
+                      drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {project
+                        ? project.name
+                        : "PDF, DOCX, or image files (MAX. 5MB)"}
+                    </p>
+                  </div>
+                  <Inputs
+                    id="project"
+                    type="file"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      if (e.target.files) setProject(e.target.files[0]);
+                    }}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+
+            {/* Assign To and Status - Responsive Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Assign To */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="assign"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Assign To <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="assign"
+                  value={assign}
+                  onChange={(e) => setAssign(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                  required
+                >
+                  <option value="">Select team member</option>
+                  {user.map((item, index) => (
+                    <option key={index} value={item.username} className="py-1">
+                      {item.username}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Status */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="status"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Status <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="status"
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                  required
+                >
+                  <option value="">Select status</option>
+                  <option value="Active" className="text-green-600">
+                    Active
+                  </option>
+                  <option value="Pending" className="text-yellow-600">
+                    Pending
+                  </option>
+                  <option value="Canceled" className="text-red-600">
+                    Canceled
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-end gap-3 pt-2">
+              <Buttons
+                type="button"
+                onClick={handleClose}
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                text="Cancel"
+              />
+              <Buttons
+                type="submit"
+                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg text-white hover:from-blue-700 hover:to-indigo-700 transition-colors shadow-lg"
+                text={editIndex !== null ? "Update Task" : "Create Task"}
+              />
+            </div>
+          </form>
+        </div>
       </Modals>
     </div>
   );
@@ -405,92 +674,133 @@ export const RunnigTask = () => {
 
 // Commetn Section
 
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import { toast } from "react-toastify";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 const ShowComment = ({ projectId }: CommentProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
+        setIsLoading(true);
         const token = localStorage.getItem("accessToken");
 
-        // Check if the token exists
         if (!token) {
-          console.error("Token is missing or undefined");
+          toast.error("Please login to view comments");
           return;
         }
+
         const response = await axios.get(
-          `https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/${projectId}`,
+          `https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/${projectId}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Add the token here
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (response.data && Array.isArray(response.data.data)) {
-          setComments(response.data.data); // Set the users array
-          // setComments((prevComments) => [...prevComments, newComment]);
-        } else {
-          // console.error("User data is not an array:", response.data);
-        }
 
-        // console.log(response.data.data);
+        if (response.data && Array.isArray(response.data.data)) {
+          setComments(response.data.data);
+        }
       } catch (error) {
-        console.log("Error", error);
+        console.error("Error fetching comments:", error);
+        toast.error("Failed to load comments");
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchComments();
-  }, []);
-  // Handle comment submission
-  const handleDelete = (index: number) => {
+
+    if (projectId) fetchComments();
+  }, [projectId]);
+
+  const handleDelete = async (index: number) => {
     try {
       const token = localStorage.getItem("accessToken");
       if (!token) {
+        toast.error("Please login to delete comments");
         return;
       }
-      const response = axios.delete(
-        `https://crm-backend-sage.vercel.app/api/v1/comment/deletecomment/${comments[index]._id}`,
+
+      await axios.delete(
+        `https://crm-backend-sage.vercel.appapi/v1/comment/deletecomment/${comments[index]._id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Add the token here
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(response);
+
+      toast.success("Comment deleted successfully");
       setComments(comments.filter((_, i) => i !== index));
-      // console.log(comments);
     } catch (error) {
-      console.log(`Delete Functionality issue ${error}`);
+      console.error("Error deleting comment:", error);
+      toast.error("Failed to delete comment");
     }
   };
 
-  // https://crm-backend-sage.vercel.app/api/v1/comment/deletecomment/67489d356d0fd7cce226f6d4
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
-    <div>
-      <div>
-        {comments.map((item: any, index: any) => {
-          return (
+    <div className="space-y-4 p-2">
+      {/* Comments List */}
+      <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-2">
+        {isLoading && comments.length === 0 ? (
+          <div className="flex justify-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        ) : comments.length === 0 ? (
+          <div className="text-center py-6 text-gray-500">No comments yet.</div>
+        ) : (
+          comments.map((item, index) => (
             <div
-              key={index}
-              className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500"
-              // className="
-              // border-2 border-black flex justify-start items-start flex-col pl-2 mt-2
-              // "
+              key={item._id}
+              className="p-3 bg-white rounded-lg shadow-sm border border-gray-100  transition-colors"
             >
-              <section className="flex justify-between">
-                <p className="text-start text-blue-500 font-bold border-b-4 border-blue-500">
-                  @{item.owner?.username}
-                </p>
-                <DeleteIcon
-                  sx={{ color: "#3b82f6" }}
-                  onClick={() => {
-                    handleDelete(index);
-                  }}
-                />
-              </section>
-              <p className="text-start font-thin">{item.content}</p>
+              <div className="flex items-start gap-2">
+                <div className="pt-1">
+                  <AccountCircleIcon
+                    className="text-gray-400"
+                    fontSize="medium"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium text-gray-800">
+                      @{item.owner?.username || "Anonymous"}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500">
+                        {formatDate(item.createdAt)}
+                      </span>
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="text-gray-400 hover:text-red-500 transition-colors"
+                        title="Delete comment"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="mt-1 text-gray-700 text-sm">{item.content}</p>
+                </div>
+              </div>
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );
@@ -499,4 +809,4 @@ const ShowComment = ({ projectId }: CommentProps) => {
 export default ShowComment;
 
 // Comment get Api
-//https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/673b7d8f11f22978df0fbee0
+//https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/673b7d8f11f22978df0fbee0

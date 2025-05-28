@@ -141,7 +141,7 @@ export default function PersistentDrawerLeft() {
       console.log("Token being sent for logout:", token);
       // Fetch the logout API to invalidate the session or token on the server
       const response = await fetch(
-        `https://crm-backend-sage.vercel.app/api/v1/users/logout`,
+        `https://crm-backend-sage.vercel.appapi/v1/users/logout`,
         {
           method: "POST",
           headers: {

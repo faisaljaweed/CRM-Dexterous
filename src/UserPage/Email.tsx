@@ -24,7 +24,7 @@ const Emails = () => {
           return;
         }
         const response = await axios.get(
-          "https://crm-backend-sage.vercel.app/api/v1/tasks/show-task",
+          "https://crm-backend-sage.vercel.appapi/v1/tasks/show-task",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -60,7 +60,7 @@ const Emails = () => {
       }
 
       const response = await axios.patch(
-        `https://crm-backend-sage.vercel.app/api/v1/tasks/editTask/${editIndex._id}`,
+        `https://crm-backend-sage.vercel.appapi/v1/tasks/editTask/${editIndex._id}`,
         {
           project: newProject,
           status: status,
@@ -87,39 +87,46 @@ const Emails = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-auto h-96">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {addUser.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col pb-6 bg-gray-200 overflow-auto h-80 border-[3px] border-gray-400 rounded-lg"
+            className="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200 hover:border-blue-400"
+            style={{ maxHeight: "400px" }}
           >
-            <section className="pl-2 pr-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-              <h4 className="text-[20px] font-bold pt-3 pb-3 text-start">
-                Title : {item.title}
-              </h4>
-            </section>
-            <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-              <p className="text-[14px] pb-3 text-start">
-                <span className="font-bold">Description : </span>{" "}
-                {item.description}
-              </p>
-            </section>
-            <section className="p-2 mt-2 bg-white shadow-lg rounded-2xl ml-2 hover:border-[2px] hover:border-blue-500">
-              <span className="text-[14px] pb-3 font-extrabold">
-                {item.status}
-              </span>
-            </section>
-            <div className="flex justify-center item-center mt-2 mb-2">
-              <img src={item.project} className="w-48 h-48" />
+            <div className=" h-48 bg-gray-100 overflow-hidden">
+              <img
+                src={item.project}
+                alt="Task preview"
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
             </div>
+            <div className="p-4 flex-1 flex flex-col overflow-y-auto">
+              <section className="flex items-center gap-2 mb-2">
+                <h4 className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                  Title : {item.title}
+                </h4>
+              </section>
+              <section className="flex items-center gap-2 mb-2">
+                <p className="text-gray-600 text-sm line-clamp-2 mb-3">
+                  <span className="font-bold">Description : </span>{" "}
+                  {item.description}
+                </p>
+              </section>
+              <section className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                  {item.status}
+                </span>
+              </section>
 
-            <button
-              onClick={() => handleEditClick(item)}
-              className="flex justify-center items-center mt-2"
-            >
-              Edit
-            </button>
-            <Comment projectId={item._id} />
+              <button
+                onClick={() => handleEditClick(item)}
+                className="flex justify-center items-center mt-2 bg-[#444ee7] text-white"
+              >
+                Edit
+              </button>
+              <Comment projectId={item._id} />
+            </div>
           </div>
         ))}
       </div>
