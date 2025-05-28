@@ -29,7 +29,7 @@
 //           return;
 //         }
 //         const response = await axios.get(
-//           `https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/${projectId}`,
+//           `https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/${projectId}`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${token}`, // Add the token here
@@ -62,7 +62,7 @@
 
 //       // Send the comment to the backend
 //       const response = await axios.post(
-//         `https://crm-backend-sage.vercel.appapi/v1/comment/add-comment/${projectId}`,
+//         `https://crm-backend-sage.vercel.app/api/v1/comment/add-comment/${projectId}`,
 //         {
 //           content: comment,
 //         },
@@ -157,7 +157,7 @@ const Comment = ({ projectId }: CommentProps) => {
         }
 
         const response = await axios.get(
-          `https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/${projectId}`,
+          `https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/${projectId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -198,7 +198,7 @@ const Comment = ({ projectId }: CommentProps) => {
       }
 
       const response = await axios.post(
-        `https://crm-backend-sage.vercel.appapi/v1/comment/add-comment/${projectId}`,
+        `https://crm-backend-sage.vercel.app/api/v1/comment/add-comment/${projectId}`,
         { content: comment },
         {
           headers: {

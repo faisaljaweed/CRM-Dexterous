@@ -18,7 +18,7 @@ const LoginScreen = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://crm-backend-sage.vercel.appapi/v1/users/login`,
+        `https://crm-backend-sage.vercel.app/api/v1/users/login`,
         {
           method: "POST",
           headers: {

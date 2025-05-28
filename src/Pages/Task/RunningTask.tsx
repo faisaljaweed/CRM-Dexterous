@@ -62,7 +62,7 @@ export const RunnigTask = () => {
           return;
         }
         const res = await axios.get(
-          "https://crm-backend-sage.vercel.appapi/v1/tasks/getAllTasks",
+          "https://crm-backend-sage.vercel.app/api/v1/tasks/getAllTasks",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -81,7 +81,7 @@ export const RunnigTask = () => {
   const handledelete = async (index: number) => {
     try {
       const response = await axios.delete(
-        `https://crm-backend-sage.vercel.appapi/v1/tasks/deleteTask/${task[index]._id}`,
+        `https://crm-backend-sage.vercel.app/api/v1/tasks/deleteTask/${task[index]._id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -114,7 +114,7 @@ export const RunnigTask = () => {
           return;
         }
         const res = await axios.get(
-          "https://crm-backend-sage.vercel.appapi/v1/users/getAllUsers",
+          "https://crm-backend-sage.vercel.app/api/v1/users/getAllUsers",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token here
@@ -163,7 +163,7 @@ export const RunnigTask = () => {
 
     try {
       const response = await axios.post(
-        "https://crm-backend-sage.vercel.appapi/v1/tasks/creat-task",
+        "https://crm-backend-sage.vercel.app/api/v1/tasks/creat-task",
         formData,
         {
           headers: {
@@ -211,7 +211,7 @@ export const RunnigTask = () => {
           return;
         }
         const response = await axios.get(
-          `https://crm-backend-sage.vercel.appapi/v1/tasks/totalNoofTask`,
+          `https://crm-backend-sage.vercel.app/api/v1/tasks/totalNoofTask`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -696,7 +696,7 @@ const ShowComment = ({ projectId }: CommentProps) => {
         }
 
         const response = await axios.get(
-          `https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/${projectId}`,
+          `https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/${projectId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -727,7 +727,7 @@ const ShowComment = ({ projectId }: CommentProps) => {
       }
 
       await axios.delete(
-        `https://crm-backend-sage.vercel.appapi/v1/comment/deletecomment/${comments[index]._id}`,
+        `https://crm-backend-sage.vercel.app/api/v1/comment/deletecomment/${comments[index]._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -809,4 +809,4 @@ const ShowComment = ({ projectId }: CommentProps) => {
 export default ShowComment;
 
 // Comment get Api
-//https://crm-backend-sage.vercel.appapi/v1/comment/getallcomment/673b7d8f11f22978df0fbee0
+//https://crm-backend-sage.vercel.app/api/v1/comment/getallcomment/673b7d8f11f22978df0fbee0
